@@ -35,6 +35,13 @@ std::shared_ptr<SceneBase> SceneTitle::Update()
 	{
 		return std::make_shared<SceneGame>();
 	}
+
+	if (m_displayCount >= 80)
+	{
+		m_displayCount = 0;
+	}
+	m_displayCount++;
+
 	return shared_from_this();
 }
 
@@ -49,12 +56,13 @@ void SceneTitle::Draw()
 		DrawGraphF(kClickGraphPosX, kClickGraphPosY, 
 			m_graphClick, true);
 	}
-	
+
+#ifdef _DEBUG
 	DrawFormatString(0, 16, 0xFFFFFF,
 		"%d", m_displayCount);
+#endif
+}
 
-	if (m_isSpace == true)
-	{
-		DrawString(0, 0, "SpaceÉLÅ[ì¸óÕ", 0xFFFFFF);
-	}
+void SceneTitle::End()
+{
 }

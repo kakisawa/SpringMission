@@ -9,6 +9,18 @@
 #include "DxLib.h"
 
 namespace {
+	// ゲーム開始前説明描画位置
+	constexpr float kExPosX = kScreenWidth * 0.23f;
+	constexpr float kExPosY = kScreenHeight * 0.1f;
+
+	constexpr float kClickGraphPosX = kScreenWidth * 0.28f;
+	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
+
+	// カウントダウン画像描画位置
+	constexpr float CountDownX = static_cast<float>(kScreenWidth) * 0.5f - 53;
+	constexpr float CountDownY = static_cast<float>(kScreenHeight) * 0.5f - 114;
+
+
 	// ゲーム開始前カウント描画位置
 	constexpr float kTimeCountPosX = kScreenWidth * 0.03f;
 	constexpr float kTimeCountPosY = kScreenHeight * 0.05f;
@@ -29,12 +41,19 @@ namespace {
 
 SceneGame::SceneGame() :
 	m_timeStartCount(kCountTime_Display),
+	m_displayCount(0),
 	m_timeCount(0.0f),
+	m_enemyInterval(0),
 	m_isTimeStartCountFlag(false),
 	m_isTimeCountFlag(false),
 	m_isGameOverFlag(false),
 	m_isGameClearFlag(false)
 {
+	m_pEnemy.resize(m_enemyNum);
+	for (int i = 0; i < m_pEnemy.size(); i++)
+	{
+		m_pEnemy[i] = std::make_shared<Enemy>();
+	}
 }
 
 SceneGame::~SceneGame()
@@ -46,23 +65,18 @@ void SceneGame::Init()
 	m_graph20sHavePassed = LoadGraph("data/20_progress.png");
 	m_graph40sHavePassed = LoadGraph("data/40_progress.png");
 	m_graph60sHavePassed = LoadGraph("data/60_progress.png");
-	m_graph80sHavePassed = LoadGraph("data/80_progress.png");	
+	m_graph80sHavePassed = LoadGraph("data/80_progress.png");
+	m_explanation = LoadGraph("data/Eexplanation.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToGame.png");
+	m_count1Graph = LoadGraph("data/Count1.png");
+	m_count2Graph = LoadGraph("data/Count2.png");
+	m_count3Graph = LoadGraph("data/Count3.png");
 }
 
 std::shared_ptr<SceneBase> SceneGame::Update()
 {
 	Pad::Update();
 	m_pCamera->Update(*m_pPlayer);
-
-	if (Pad::IsTrigger(PAD_INPUT_1))
-	{
-		return std::make_shared<SceneGameClear>();
-	}
-	if (Pad::IsTrigger(PAD_INPUT_2))
-	{
-		return std::make_shared<SceneGameOver>();
-	}
-	return shared_from_this();	// 自身のshared_ptrを返す
 
 
 	if (Pad::IsTrigger(PAD_INPUT_10))
@@ -86,19 +100,50 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 		m_timeCount++;
 
 		m_pPlayer->Update();
-		m_pEnemy->Update();
-
 		Rect playerRect = m_pPlayer->GetColRect();
-		Rect enemyRect = m_pEnemy->GetColRect();
-		if (playerRect.IsCollsion(enemyRect))
+
+		for (int i = 0; i < m_pEnemy.size(); i++)
 		{
-			m_isGameOverFlag = true;
+
+			m_pEnemy[i]->Update();
+
+			Rect enemyRect = m_pEnemy[i]->GetColRect();
+			if (playerRect.IsCollsion(enemyRect))
+			{
+				m_isGameOverFlag = true;
+			}
+		}
+
+		//敵キャラクターの登場
+		m_enemyInterval++;
+		if (m_enemyInterval >= 60)
+		{
+			CreateEnemy();
+			m_enemyInterval = 0;
 		}
 	}
+
+	if (m_displayCount >= 80)
+	{
+		m_displayCount = 0;
+	}
+	m_displayCount++;
+
+	if (Pad::IsTrigger(PAD_INPUT_1) || m_timeCount >= kCountTime_Finish)
+	{
+		return std::make_shared<SceneGameClear>();
+	}
+	if (Pad::IsTrigger(PAD_INPUT_2)|| m_isGameOverFlag == true)
+	{
+		return std::make_shared<SceneGameOver>();
+	}
+
+	return shared_from_this();	// 自身のshared_ptrを返す
 }
 
 void SceneGame::Draw()
 {
+#ifdef _DEBUG
 	// デバッグ描画
 	// XYZ軸
 	float lineSize = 300.0f;
@@ -109,6 +154,41 @@ void SceneGame::Draw()
 	DrawFormatString(0, 0, 0xFFFFFF, "%.1f", m_timeStartCount);
 	DrawFormatString(0, 20, 0xFFFFFF, "m_isGameOverFlag=%d", m_isGameOverFlag);
 
+#endif
+
+	if (m_isTimeStartCountFlag== false)
+	{
+		DrawGraphF(kExPosX, kExPosY,
+			m_explanation, true);
+		if (m_displayCount <= 60)
+		{
+			DrawGraphF(kClickGraphPosX, kClickGraphPosY,
+				m_graphClick, true);
+		}
+	}
+
+	if (m_timeStartCount >= 0&& m_isTimeStartCountFlag==true)
+	{
+		// ゲーム開始前カウントダウン描画
+		if (m_timeStartCount >= 121)
+		{
+			DrawExtendGraphF(CountDownX, CountDownY,
+				CountDownX + 106, CountDownY + 228,
+				m_count3Graph, true);
+		}
+		else if (m_timeStartCount <= 120 && m_timeStartCount >= 61)
+		{
+			DrawExtendGraphF(CountDownX, CountDownY,
+				CountDownX + 106, CountDownY + 228,
+				m_count2Graph, true);
+		}
+		else if (m_timeStartCount <= 60 && m_timeStartCount >= 1)
+		{
+			DrawExtendGraphF(CountDownX, CountDownY,
+				CountDownX + 106, CountDownY + 228,
+				m_count1Graph, true);
+		}
+	}
 	
 
 	if (m_isTimeCountFlag == true)
@@ -118,9 +198,16 @@ void SceneGame::Draw()
 			"経過時間:%.1f", m_timeCount / 60);
 
 		m_pPlayer->Draw();
-		m_pEnemy->Draw();
 
-		if (m_timeCount >= kCountTime_20s && m_timeCount <= kCountTime_20s+kCountTime_Display)
+		for (int i = 0; i < m_pEnemy.size(); i++)
+		{
+			if (m_pEnemy[i])
+			{
+				m_pEnemy[i]->Draw();
+			}
+		}
+
+		if (m_timeCount >= kCountTime_20s && m_timeCount <= kCountTime_20s + kCountTime_Display)
 		{
 			DrawGraphF(kProgressTimePosX, kProgressTimePosY,
 				m_graph20sHavePassed, true);
@@ -141,5 +228,20 @@ void SceneGame::Draw()
 				m_graph80sHavePassed, true);
 		}
 	}
-	
+}
+
+void SceneGame::End()
+{
+}
+
+void SceneGame::CreateEnemy()
+{
+	for (int i = 0; i < m_pEnemy.size(); i++)
+	{
+		if (!m_pEnemy[i])
+		{
+			m_pEnemy[i]->Start(19, 0.1f, 0);
+			return;
+		}
+	}
 }

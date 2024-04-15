@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+
 class SceneBase;
 class SceneManager
 {

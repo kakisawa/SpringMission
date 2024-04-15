@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+
 class SceneBase : 
 	public std::enable_shared_from_this<SceneBase>
 {

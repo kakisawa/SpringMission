@@ -17,7 +17,7 @@ public:
 
 	int GetModelHandle() const { return m_modelHandle;}
 
-	//void Start(float x, float y);
+	void Start(float x, float y,float z);
 
 private:
 	int m_modelHandle;

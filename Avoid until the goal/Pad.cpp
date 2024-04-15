@@ -19,7 +19,6 @@ namespace Pad
 		nowPad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	}
 
-
 	bool IsPress(int key)
 	{
 		return (nowPad & key);

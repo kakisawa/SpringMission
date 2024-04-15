@@ -9,6 +9,11 @@ namespace {
 
 	constexpr float kGravity = 0.18f;	// 重力
 	constexpr float kJumpPow = 0.4f;	// ジャンプ力
+
+	constexpr float kWidht = 50.0f;
+	constexpr float kHeight = 65.0f;
+
+	constexpr float kColPosAdjustment = 0.5f;
 }
 
 // 静的定数
@@ -101,7 +106,8 @@ void Player::Update()
 	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, -90.0f, 0.0f));
 
 	// 当たり判定の更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y + 0.5f, m_pos.z, 50, 65);
+	m_colRect.SetCenter(m_pos.x, m_pos.y + kColPosAdjustment, m_pos.z,
+		kWidht, kHeight);
 }
 
 void Player::Draw()
@@ -109,15 +115,17 @@ void Player::Draw()
 	// ３Ｄモデルの描画
 	MV1DrawModel(m_modelHandle);
 
-	/*DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
-	DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);*/
-	DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
-	DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
+#ifdef _DEBUG
+	//DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
+	//DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);
+	//DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
+	//DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
 
 	DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
 	DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
 	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
 
 	// 当たり判定の表示
-	m_colRect.Draw(0xFFFFFF, false);
+	m_colRect.Draw(0xFFFFFF, false); 
+#endif
 }
