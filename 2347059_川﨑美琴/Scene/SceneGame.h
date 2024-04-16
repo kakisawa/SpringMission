@@ -45,7 +45,7 @@ private:
 
 	int m_enemyInterval;
 
-	int m_enemyNum = 4;
+	int m_enemyNum = 20;
 	
 
 	std::shared_ptr<Camera> m_pCamera = std::make_shared<Camera>();

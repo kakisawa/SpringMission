@@ -8,6 +8,8 @@
 #include "Pad.h"
 #include "DxLib.h"
 
+using namespace std;
+
 namespace {
 	// ゲーム開始前説明描画位置
 	constexpr float kExPosX = kScreenWidth * 0.23f;
@@ -70,7 +72,7 @@ void SceneGame::Init()
 	m_count3Graph = LoadGraph("data/Count3.png");
 }
 
-std::shared_ptr<SceneBase> SceneGame::Update()
+shared_ptr<SceneBase> SceneGame::Update()
 {
 	Pad::Update();
 	m_pCamera->Update(*m_pPlayer);
@@ -117,13 +119,13 @@ std::shared_ptr<SceneBase> SceneGame::Update()
 	}
 	m_displayCount++;
 
-	if ( m_timeCount >= kCountTime_Finish)
+	if (m_timeCount >= kCountTime_Finish)
 	{
-		return std::make_shared<SceneGameClear>();
+		return make_shared<SceneGameClear>();
 	}
 	if (m_isGameOverFlag == true)
 	{
-		return std::make_shared<SceneGameOver>();
+		return make_shared<SceneGameOver>();
 	}
 
 	/*
@@ -148,7 +150,7 @@ void SceneGame::Draw()
 	//DrawFormatString(0, 20, 0xFFFFFF, "m_isGameOverFlag=%d", m_isGameOverFlag);
 #endif
 
-	if (m_isTimeStartCountFlag== false)
+	if (m_isTimeStartCountFlag == false)
 	{
 		DrawGraphF(kExPosX, kExPosY,
 			m_explanation, true);
@@ -159,7 +161,7 @@ void SceneGame::Draw()
 		}
 	}
 
-	if (m_timeStartCount >= 0&& m_isTimeStartCountFlag==true)
+	if (m_timeStartCount >= 0 && m_isTimeStartCountFlag == true)
 	{
 		// ゲーム開始前カウントダウン描画
 		if (m_timeStartCount >= 121)
@@ -181,7 +183,7 @@ void SceneGame::Draw()
 				m_count1Graph, true);
 		}
 	}
-	
+
 
 	if (m_isTimeCountFlag == true)
 	{
@@ -227,40 +229,32 @@ void SceneGame::End()
 }
 
 namespace {
-	constexpr float kEnemyPosYHigh = 1.5f;	
-	constexpr float kEnemyPosYLow = 0.0f;	
-
-
-
+	constexpr float kEnemyPosYHigh = 1.5f;
+	constexpr float kEnemyPosYLow = 0.0f;
 }
 
 void SceneGame::CreateEnemy()
 {
 	m_pEnemy.resize(m_enemyNum);
-	for (int i = 0; i < m_pEnemy.size(); i+2)
-	{
-		m_pEnemy[i] = std::make_shared<Enemy>(VGet(5.0f + 5.0f * i, kEnemyPosYHigh, 0.0f));
-		/*m_pEnemy[i] = std::make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
-		m_pEnemy[i] = std::make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
-		m_pEnemy[i] = std::make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));*/
 
-		if (i % 2 == 1)
-		{
-			m_pEnemy[i] = std::make_shared<Enemy>(VGet(5.0f + 5.0f * i, kEnemyPosYHigh, 0.0f));
-		}
-		else
-		{
-
-		}
-
-
-	}
-
-	
-
-	/*for (int i = 0; i < m_pEnemy.size(); i++)
-	{
-		VECTOR pos = VGet(19.0f+i * 5.0f, 0.0f, 0.0f);
-		m_pEnemy[0] = std::make_shared<Enemy>(VGet(19.0f + i * 5.0f, 0.0f, 0.0f));
-	}*/
+	m_pEnemy[0] = make_shared<Enemy>(VGet(5.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[1] = make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[2] = make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[3] = make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[4] = make_shared<Enemy>(VGet(5.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[5] = make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[6] = make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[7] = make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[8] = make_shared<Enemy>(VGet(5.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[9] = make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[10] = make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[11] = make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[12] = make_shared<Enemy>(VGet(5.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[13] = make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[14] = make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[15] = make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[16] = make_shared<Enemy>(VGet(5.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[17] = make_shared<Enemy>(VGet(10.0f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[18] = make_shared<Enemy>(VGet(15.0f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[19] = make_shared<Enemy>(VGet(20.0f, kEnemyPosYHigh, 0.0f));
 }
