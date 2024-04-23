@@ -1,7 +1,9 @@
 #pragma once
 #include "SceneBase.h"
-#include <memory>]
+#include <memory>
 #include <vector>
+
+using namespace std;
 
 class Camera;
 class Player;
@@ -45,11 +47,10 @@ private:
 
 	int m_enemyInterval;
 
-	int m_enemyNum = 1;
+	int m_enemyNum = 60;
 	
 
-	std::shared_ptr<Camera> m_pCamera = std::make_shared<Camera>();
-	std::shared_ptr<Player> m_pPlayer = std::make_shared<Player>();
-	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
-	std::vector<std::shared_ptr<Enemy>> m_pEnemy2;
+	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
+	shared_ptr<Player> m_pPlayer = make_shared<Player>();
+	vector<shared_ptr<Enemy>> m_pEnemy;
 };

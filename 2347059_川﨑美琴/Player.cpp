@@ -32,7 +32,7 @@ Player::Player() :
 	m_modelHandle = MV1LoadModel("data/Robot.mv1");
 	assert(m_modelHandle != -1);
 
-	m_pos = VGet(1, 0, 0);
+	m_pos = VGet(0, 0, 0);
 	m_velocity = VGet(0, 0, 0);
 	m_dir = VGet(0, 0, 1);
 }
@@ -69,7 +69,7 @@ void Player::Update()
 	if (m_isJump == true)							// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
 	{
 		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));
-		if (m_jumpCount == 2)
+		if (m_jumpCount >= 2)
 		{
 			m_pos = VAdd(m_pos, VGet(0, kJumpPow * 0.5f, 0));
 		}
@@ -124,7 +124,7 @@ void Player::Draw()
 	DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
 	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
 
-	//// 当たり判定の表示
-	//m_colRect.Draw(0xFFFFFF, false); 
+	// 当たり判定の表示
+	m_colRect.Draw(0xFFFFFF, false); 
 #endif
 }

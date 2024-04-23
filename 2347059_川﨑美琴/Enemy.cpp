@@ -39,7 +39,7 @@ Enemy::~Enemy()
 void Enemy::Update()
 {
 	// 当たり判定の更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y * kColPosAdjustment, m_pos.z,
+	m_colRect.SetCenter(m_pos.x, m_pos.y, m_pos.z,
 		kWidht, kHeight);
 
 	m_dir = VGet(0, 0, 0);
@@ -90,12 +90,12 @@ void Enemy::Draw()
 	
 
 #ifdef _DEBUG
-	//// 当たり判定の表示
-	//m_colRect.Draw(0xff0000, false);
+	// 当たり判定の表示
+	m_colRect.Draw(0xff0000, false);
 
-	DrawFormatString(300, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
+	/*DrawFormatString(300, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
 	DrawFormatString(300, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
-	DrawFormatString(300, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
+	DrawFormatString(300, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);*/
 
 	//DrawFormatString(300, 360, 0xFFFFFF, "m_colRect=%.2f", m_colRect);
 #endif
