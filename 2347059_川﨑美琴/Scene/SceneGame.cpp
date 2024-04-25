@@ -293,21 +293,20 @@ void SceneGame::CreateEnemy()
 	m_pEnemy[43] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 30.8f, kEnemyPosYLow, 0.0f));
 	m_pEnemy[44] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
 	m_pEnemy[45] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 32, kEnemyPosYLow, 0.0f));
-	m_pEnemy[46] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 32.2f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[46] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 32.1f, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[47] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 33.5f, kEnemyPosYHigh, 0.0f));
-	m_pEnemy[48] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 33.7f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[48] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 33.6f, kEnemyPosYLow, 0.0f));
 	m_pEnemy[49] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 34.5, kEnemyPosYLow, 0.0f));
 	m_pEnemy[50] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 34.7f, kEnemyPosYLow, 0.0f));
 	m_pEnemy[51] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 36, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[52] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 37, kEnemyPosYLow, 0.0f));
-	m_pEnemy[53] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 37.2f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[53] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 37.1f, kEnemyPosYHigh, 0.0f));
 
 	// 60ïbÅ@170
 	m_pEnemy[54] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 38, kEnemyPosYLow, 0.0f));
-
-
-	m_pEnemy[55] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
-	m_pEnemy[56] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
+	m_pEnemy[55] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 38.1f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[56] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 39, kEnemyPosYLow, 0.0f));
+	
 	m_pEnemy[57] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
 	m_pEnemy[58] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
 	m_pEnemy[59] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
