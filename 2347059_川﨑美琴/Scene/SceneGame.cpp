@@ -307,8 +307,14 @@ void SceneGame::CreateEnemy()
 	m_pEnemy[55] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 38.1f, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[56] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 39, kEnemyPosYLow, 0.0f));
 	
-	m_pEnemy[57] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
-	m_pEnemy[58] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
-	m_pEnemy[59] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 31, kEnemyPosYLow, 0.0f));
+	m_pEnemy[57] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40, kEnemyPosYLow, 0.0f));
+	m_pEnemy[58] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40.2f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[59] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 41, kEnemyPosYLow, 0.0f));
+
+
+	// 80•b
+
+	// 90•b
+
 
 }

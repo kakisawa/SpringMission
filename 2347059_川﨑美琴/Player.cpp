@@ -32,7 +32,7 @@ Player::Player() :
 	m_modelHandle = MV1LoadModel("data/Robot.mv1");
 	assert(m_modelHandle != -1);
 
-	m_pos = VGet(147, 0, 0);
+	m_pos = VGet(0, 0, 0);
 	m_velocity = VGet(0, 0, 0);
 	m_dir = VGet(0, 0, 1);
 }
