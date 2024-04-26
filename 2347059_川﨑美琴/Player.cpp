@@ -29,7 +29,7 @@ Player::Player() :
 	m_isOnGround(true),
 	m_isJump(false)
 {
-	m_modelHandle = MV1LoadModel("data/Robot.mv1");
+	m_modelHandle = MV1LoadModel("data/SceneGame/model/Robot.mv1");
 	assert(m_modelHandle != -1);
 
 	m_pos = VGet(0, 0, 0);

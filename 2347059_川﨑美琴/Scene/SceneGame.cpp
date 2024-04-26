@@ -57,19 +57,27 @@ SceneGame::SceneGame() :
 
 SceneGame::~SceneGame()
 {
+	DeleteGraph(m_graphCount1);
+	DeleteGraph(m_graphCount2);
+	DeleteGraph(m_graphCount3);
+	DeleteGraph(m_graph20sHavePassed);
+	DeleteGraph(m_graph40sHavePassed);
+	DeleteGraph(m_graph60sHavePassed);
+	DeleteGraph(m_graph80sHavePassed);
+	DeleteGraph(m_graphClick);
 }
 
 void SceneGame::Init()
 {
-	m_graph20sHavePassed = LoadGraph("data/20_progress.png");
-	m_graph40sHavePassed = LoadGraph("data/40_progress.png");
-	m_graph60sHavePassed = LoadGraph("data/60_progress.png");
-	m_graph80sHavePassed = LoadGraph("data/80_progress.png");
-	m_explanation = LoadGraph("data/Eexplanation.png");
-	m_graphClick = LoadGraph("data/ClickSpaceToGame.png");
-	m_count1Graph = LoadGraph("data/Count1.png");
-	m_count2Graph = LoadGraph("data/Count2.png");
-	m_count3Graph = LoadGraph("data/Count3.png");
+	m_graph20sHavePassed = LoadGraph("data/SceneGame/20_progress.png");
+	m_graph40sHavePassed = LoadGraph("data/SceneGame/40_progress.png");
+	m_graph60sHavePassed = LoadGraph("data/SceneGame/60_progress.png");
+	m_graph80sHavePassed = LoadGraph("data/SceneGame/80_progress.png");
+	m_graphExplanation = LoadGraph("data/SceneGame/Eexplanation.png");
+	m_graphClick = LoadGraph("data/SceneGame/ClickSpaceToGame.png");
+	m_graphCount1 = LoadGraph("data/SceneGame/Count1.png");
+	m_graphCount2 = LoadGraph("data/SceneGame/Count2.png");
+	m_graphCount3 = LoadGraph("data/SceneGame/Count3.png");
 }
 
 shared_ptr<SceneBase> SceneGame::Update()
@@ -153,7 +161,7 @@ void SceneGame::Draw()
 	if (m_isTimeStartCountFlag == false)
 	{
 		DrawGraphF(kExPosX, kExPosY,
-			m_explanation, true);
+			m_graphExplanation, true);
 		if (m_displayCount <= 60)
 		{
 			DrawGraphF(kClickGraphPosX, kClickGraphPosY,
@@ -168,19 +176,19 @@ void SceneGame::Draw()
 		{
 			DrawExtendGraphF(CountDownX, CountDownY,
 				CountDownX + 106, CountDownY + 228,
-				m_count3Graph, true);
+				m_graphCount3, true);
 		}
 		else if (m_timeStartCount <= 120 && m_timeStartCount >= 61)
 		{
 			DrawExtendGraphF(CountDownX, CountDownY,
 				CountDownX + 106, CountDownY + 228,
-				m_count2Graph, true);
+				m_graphCount2, true);
 		}
 		else if (m_timeStartCount <= 60 && m_timeStartCount >= 1)
 		{
 			DrawExtendGraphF(CountDownX, CountDownY,
 				CountDownX + 106, CountDownY + 228,
-				m_count1Graph, true);
+				m_graphCount1, true);
 		}
 	}
 
@@ -222,10 +230,6 @@ void SceneGame::Draw()
 				m_graph80sHavePassed, true);
 		}
 	}
-}
-
-void SceneGame::End()
-{
 }
 
 namespace {
@@ -278,7 +282,7 @@ void SceneGame::CreateEnemy()
 	m_pEnemy[30] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 23, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[31] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 23.2f, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[32] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 24, kEnemyPosYLow, 0.0f));
-	
+
 	// 40•b 110
 	m_pEnemy[33] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 25, kEnemyPosYLow, 0.0f));
 	m_pEnemy[34] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (25 + kEnemyIntervalX * 1), kEnemyPosYLow, 0.0f));
@@ -306,15 +310,37 @@ void SceneGame::CreateEnemy()
 	m_pEnemy[54] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 38, kEnemyPosYLow, 0.0f));
 	m_pEnemy[55] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 38.1f, kEnemyPosYHigh, 0.0f));
 	m_pEnemy[56] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 39, kEnemyPosYLow, 0.0f));
-	
 	m_pEnemy[57] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40, kEnemyPosYLow, 0.0f));
-	m_pEnemy[58] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40.2f, kEnemyPosYLow, 0.0f));
-	m_pEnemy[59] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 41, kEnemyPosYLow, 0.0f));
-
-
-	// 80•b
-
-	// 90•b
-
-
+	m_pEnemy[58] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40.15f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[59] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 40.7f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[60] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 41.5f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[61] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 41.65f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[62] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 42.5, kEnemyPosYLow, 0.0f));
+	m_pEnemy[63] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 43, kEnemyPosYLow, 0.0f));
+	m_pEnemy[64] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX), kEnemyPosYLow, 0.0f));
+	m_pEnemy[65] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 2), kEnemyPosYLow, 0.0f));
+	m_pEnemy[66] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 3), kEnemyPosYLow, 0.0f));
+	m_pEnemy[67] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 4), kEnemyPosYLow, 0.0f));
+	m_pEnemy[68] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 5), kEnemyPosYLow, 0.0f));
+	m_pEnemy[69] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 6), kEnemyPosYLow, 0.0f));
+	m_pEnemy[70] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * (43 + kEnemyIntervalX * 7), kEnemyPosYLow, 0.0f));
+	m_pEnemy[71] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 48, kEnemyPosYLow, 0.0f));
+	m_pEnemy[72] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 48.5, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[73] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 50, kEnemyPosYLow, 0.0f));
+	m_pEnemy[74] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 50.5, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[75] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 51, kEnemyPosYLow, 0.0f));
+	m_pEnemy[76] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 51.5, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[77] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 52, kEnemyPosYLow, 0.0f));
+	m_pEnemy[78] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 53, kEnemyPosYLow, 0.0f));
+	m_pEnemy[79] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 53.2f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[80] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 54, kEnemyPosYLow, 0.0f));
+	m_pEnemy[81] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 54.2f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[82] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 55, kEnemyPosYLow, 0.0f));
+	m_pEnemy[83] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 55.5f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[84] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 56, kEnemyPosYLow, 0.0f));
+	m_pEnemy[85] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 56.5f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[86] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 57, kEnemyPosYLow, 0.0f));
+	m_pEnemy[87] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 57.5f, kEnemyPosYHigh, 0.0f));
+	m_pEnemy[88] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 58.1f, kEnemyPosYLow, 0.0f));
+	m_pEnemy[89] = make_shared<Enemy>(VGet(kEnemyPosYInit + kEnemyPosX * 58.3f, kEnemyPosYHigh, 0.0f));
 }

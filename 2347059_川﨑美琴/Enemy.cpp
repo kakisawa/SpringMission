@@ -23,7 +23,7 @@ Enemy::Enemy(VECTOR pos):
 	//m_isExist(false),
 	m_pos(pos)
 {
-	m_modelHandle = MV1LoadModel("data/Bee.mv1");
+	m_modelHandle = MV1LoadModel("data/SceneGame/model/Bee.mv1");
 	assert(m_modelHandle != -1);
 
 	m_velocity = VGet(0, 0, 0);

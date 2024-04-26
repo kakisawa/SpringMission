@@ -19,7 +19,7 @@ public:
 	virtual void Init();
 	virtual std::shared_ptr<SceneBase> Update();
 	virtual void Draw();
-	virtual void End();
+	virtual void End() {};
 
 	void CreateEnemy();
 
@@ -29,11 +29,11 @@ private:
 	int m_graph40sHavePassed;
 	int m_graph60sHavePassed;
 	int m_graph80sHavePassed;
-	int m_explanation;
+	int m_graphExplanation;
 	int m_graphClick;
-	int m_count3Graph;
-	int m_count2Graph;
-	int m_count1Graph;
+	int m_graphCount3;
+	int m_graphCount2;
+	int m_graphCount1;
 
 	float m_timeStartCount;		// ゲームスタートカウント
 	float m_timeCount;			// 経過時間カウント
@@ -47,7 +47,7 @@ private:
 
 	int m_enemyInterval;
 
-	int m_enemyNum = 60;
+	int m_enemyNum = 90;
 	
 
 	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
