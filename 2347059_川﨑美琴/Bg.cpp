@@ -5,10 +5,10 @@
 namespace {
 
 	// スクロール移動量
-	constexpr float kBackGroundScale = 1.2f;
-	/*constexpr float kBackGroundScale = 1.2f;
-	constexpr float kBackGroundScale = 1.2f;
-	constexpr float kBackGroundScale = 1.2f;*/
+	constexpr float kBgScroll1 = 0.3f;
+	constexpr float kBgScroll2 = 0.5f;
+	constexpr float kBgScroll3 = 0.8f;
+	constexpr float kBgScroll4 = 1.0f;
 
 
 	// 背景の拡大率
@@ -25,7 +25,10 @@ Bg::Bg():
 	m_pos2(VGet(0, 0, 0)),
 	m_pos3(VGet(0, 0, 0)),
 	m_pos4(VGet(0, 0, 0)),
-	m_scrollX(0)
+	m_scrollX_1(0),
+	m_scrollX_2(0),
+	m_scrollX_3(0),
+	m_scrollX_4(0)
 {
 	m_bg1 = LoadGraph("data/Bg/plx-1.png");
 	m_bg2 = LoadGraph("data/Bg/plx-2.png");
@@ -51,7 +54,13 @@ void Bg::Init()
 void Bg::Update()
 {
 	// 背景スクロール
-	m_scrollX += kBackGroundScale;
+	m_scrollX_1 += kBgScroll1;
+
+	m_scrollX_2 += kBgScroll2;
+
+	m_scrollX_3 += kBgScroll3;
+
+	m_scrollX_4 += kBgScroll4;
 }
 
 void Bg::Draw()
@@ -61,7 +70,10 @@ void Bg::Draw()
 	
 
 	// スクロール量を計算
-	int scrollBg = static_cast<int>(m_scrollX) % static_cast<int>(bgSize.m_width * kBgScale);
+	int scrollBg = static_cast<int>(m_scrollX_1) % static_cast<int>(bgSize.m_width * kBgScale);
+	int scrollBg2 = static_cast<int>(m_scrollX_2) % static_cast<int>(bgSize.m_width * kBgScale);
+	int scrollBg3 = static_cast<int>(m_scrollX_3) % static_cast<int>(bgSize.m_width * kBgScale);
+	int scrollBg4 = static_cast<int>(m_scrollX_4) % static_cast<int>(bgSize.m_width * kBgScale);
 
 	// 一番下
 	DrawRotaGraph2(m_pos.x, m_pos.y,
@@ -78,7 +90,26 @@ void Bg::Draw()
 			kBgScale, 0.0f,
 			m_bg2, true);
 
+		// 下から3番目
+		DrawRotaGraph2(-scrollBg2 + index * bgSize.m_width * kBgScale,
+			m_pos.y,
+			0, 0,
+			kBgScale, 0.0f,
+			m_bg3, true);
 
+		// 下から4番目
+		DrawRotaGraph2(-scrollBg3 + index * bgSize.m_width * kBgScale,
+			m_pos.y,
+			0, 0,
+			kBgScale, 0.0f,
+			m_bg4, true);
+
+		// 下から5番目(一番)
+		DrawRotaGraph2(-scrollBg4 + index * bgSize.m_width * kBgScale,
+			m_pos.y,
+			0, 0,
+			kBgScale, 0.0f,
+			m_bg5, true);
 	}
 
 }

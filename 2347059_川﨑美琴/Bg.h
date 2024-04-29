@@ -31,5 +31,8 @@ private:
 		int m_height;       // 縦
 	};
 
-	float m_scrollX;        // スクロール移動量
+	float m_scrollX_1;        // スクロール移動量
+	float m_scrollX_2;        // スクロール移動量
+	float m_scrollX_3;        // スクロール移動量
+	float m_scrollX_4;        // スクロール移動量
 };

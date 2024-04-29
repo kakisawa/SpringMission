@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Camera.h"
+#include "Bg.h"
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
@@ -84,7 +85,7 @@ shared_ptr<SceneBase> SceneGame::Update()
 {
 	Pad::Update();
 	m_pCamera->Update(*m_pPlayer);
-
+	
 
 	if (Pad::IsTrigger(PAD_INPUT_10))
 	{
@@ -106,6 +107,7 @@ shared_ptr<SceneBase> SceneGame::Update()
 	{
 		m_timeCount++;
 
+		m_pBg->Update();
 		m_pPlayer->Update();
 		Rect playerRect = m_pPlayer->GetColRect();
 
@@ -158,6 +160,8 @@ void SceneGame::Draw()
 	//DrawFormatString(0, 20, 0xFFFFFF, "m_isGameOverFlag=%d", m_isGameOverFlag);
 #endif
 
+	m_pBg->Draw();
+		
 	if (m_isTimeStartCountFlag == false)
 	{
 		DrawGraphF(kExPosX, kExPosY,
@@ -171,6 +175,7 @@ void SceneGame::Draw()
 
 	if (m_timeStartCount >= 0 && m_isTimeStartCountFlag == true)
 	{
+
 		// ゲーム開始前カウントダウン描画
 		if (m_timeStartCount >= 121)
 		{

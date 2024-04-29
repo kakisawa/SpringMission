@@ -8,6 +8,7 @@ using namespace std;
 class Camera;
 class Player;
 class Enemy;
+class Bg;
 
 class SceneGame :
 	public SceneBase
@@ -53,4 +54,6 @@ private:
 	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
 	shared_ptr<Player> m_pPlayer = make_shared<Player>();
 	vector<shared_ptr<Enemy>> m_pEnemy;
+
+	shared_ptr<Bg> m_pBg = make_shared<Bg>();
 };
