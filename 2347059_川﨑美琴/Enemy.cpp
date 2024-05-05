@@ -91,7 +91,7 @@ void Enemy::Draw()
 
 #ifdef _DEBUG
 	// “–‚½‚è”»’è‚Ì•\Ž¦
-	m_colRect.Draw(0xff0000, false);
+	//m_colRect.Draw(0xff0000, false);
 
 	/*DrawFormatString(300, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
 	DrawFormatString(300, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);

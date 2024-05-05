@@ -201,7 +201,7 @@ void SceneGame::Draw()
 	if (m_isTimeCountFlag == true)
 	{
 		DrawExtendFormatStringF(kTimeCountPosX, kTimeCountPosY,
-			3, 3, 0xFFFFFF,
+			4, 4, 0x000000,
 			"Œo‰ßŽžŠÔ:%.1f", m_timeCount / 60);
 
 		m_pPlayer->Draw();

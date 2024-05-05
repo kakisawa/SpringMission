@@ -120,11 +120,11 @@ void Player::Draw()
 	////DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
 	////DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
 
-	DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
+	/*DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
 	DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
-	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
+	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);*/
 
 	// “–‚½‚è”»’è‚Ì•\Ž¦
-	m_colRect.Draw(0xFFFFFF, false); 
+	//m_colRect.Draw(0xFFFFFF, false); 
 #endif
 }
