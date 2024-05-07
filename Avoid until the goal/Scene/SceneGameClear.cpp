@@ -23,8 +23,8 @@ SceneGameClear::~SceneGameClear()
 
 void SceneGameClear::Init()
 {
-	m_graphClear = LoadGraph("data/GameClear.png");
-	m_graphClick = LoadGraph("data/ClickSpaceToTitle.png");
+	m_graphClear = LoadGraph("data/GameClear2.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToTitle2.png");
 }
 
 std::shared_ptr<SceneBase> SceneGameClear::Update()
@@ -57,12 +57,12 @@ void SceneGameClear::Draw()
 
 
 #ifdef _DEBUG
-	DrawFormatString(0, 16, 0xFFFFFF, "%d", m_displayCount);
+	/*DrawFormatString(0, 16, 0xFFFFFF, "%d", m_displayCount);
 
 	if (m_isSpace == true)
 	{
 		DrawString(0, 0, "SpaceÉLÅ[ì¸óÕ", 0xFFFFFF);
-	}
+	}*/
 #endif
 }
 

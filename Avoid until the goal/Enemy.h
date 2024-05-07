@@ -5,7 +5,7 @@
 class Enemy
 {
 public:
-	Enemy();
+	Enemy(VECTOR pos);
 	~Enemy();
 
 	void Update();
@@ -16,8 +16,6 @@ public:
 	Rect GetColRect() const { return m_colRect; }
 
 	int GetModelHandle() const { return m_modelHandle;}
-
-	void Start(float x, float y,float z);
 
 private:
 	int m_modelHandle;

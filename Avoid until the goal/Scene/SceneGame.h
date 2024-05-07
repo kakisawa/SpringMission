@@ -1,11 +1,14 @@
 #pragma once
 #include "SceneBase.h"
-#include <memory>]
+#include <memory>
 #include <vector>
+
+using namespace std;
 
 class Camera;
 class Player;
 class Enemy;
+class Bg;
 
 class SceneGame :
 	public SceneBase
@@ -17,7 +20,7 @@ public:
 	virtual void Init();
 	virtual std::shared_ptr<SceneBase> Update();
 	virtual void Draw();
-	virtual void End();
+	virtual void End() {};
 
 	void CreateEnemy();
 
@@ -27,11 +30,11 @@ private:
 	int m_graph40sHavePassed;
 	int m_graph60sHavePassed;
 	int m_graph80sHavePassed;
-	int m_explanation;
+	int m_graphExplanation;
 	int m_graphClick;
-	int m_count3Graph;
-	int m_count2Graph;
-	int m_count1Graph;
+	int m_graphCount3;
+	int m_graphCount2;
+	int m_graphCount1;
 
 	float m_timeStartCount;		// ゲームスタートカウント
 	float m_timeCount;			// 経過時間カウント
@@ -45,9 +48,12 @@ private:
 
 	int m_enemyInterval;
 
-	int m_enemyNum = 10;
+	int m_enemyNum = 90;
+	
 
-	std::shared_ptr<Camera> m_pCamera = std::make_shared<Camera>();
-	std::shared_ptr<Player> m_pPlayer = std::make_shared<Player>();
-	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
+	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
+	shared_ptr<Player> m_pPlayer = make_shared<Player>();
+	vector<shared_ptr<Enemy>> m_pEnemy;
+
+	shared_ptr<Bg> m_pBg = make_shared<Bg>();
 };

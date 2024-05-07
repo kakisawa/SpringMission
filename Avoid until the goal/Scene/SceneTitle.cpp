@@ -23,8 +23,8 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
-	m_graphTitle = LoadGraph("data/Title.png");
-	m_graphClick = LoadGraph("data/ClickSpaceToGame.png");
+	m_graphTitle = LoadGraph("data/Title2.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToGame2.png");
 }
 
 std::shared_ptr<SceneBase> SceneTitle::Update()
@@ -51,6 +51,7 @@ void SceneTitle::Draw()
 		kScreenWidth*0.85f, kScreenHeight*0.5f,
 		m_graphTitle, true);
 
+
 	if (m_displayCount <= 60)
 	{
 		DrawGraphF(kClickGraphPosX, kClickGraphPosY, 
@@ -58,8 +59,8 @@ void SceneTitle::Draw()
 	}
 
 #ifdef _DEBUG
-	DrawFormatString(0, 16, 0xFFFFFF,
-		"%d", m_displayCount);
+	/*DrawFormatString(0, 16, 0xFFFFFF,
+		"%d", m_displayCount);*/
 #endif
 }
 

@@ -1,6 +1,7 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "SceneManager.h"
+#include "Bg.h"
 
 #include <iostream>
 #include <memory>		// スマートポインタを使用するのに必要
@@ -12,7 +13,7 @@ using namespace std;
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// 一部の関数はDxLib_Init()の前に実行する必要がある
-	//ChangeWindowMode(true);
+	ChangeWindowMode(false);
 	SetGraphMode(kScreenWidth, kScreenHeight, kColorDepth);
 	SetWindowText(_T("Avoid until the goal"));
 
@@ -26,6 +27,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	shared_ptr<SceneManager> pScene = make_shared<SceneManager>();
 	pScene->Init();
 
+	/*shared_ptr<Bg> pBg = make_shared<Bg>();
+	pBg->Init();*/
+
 	// ゲームループ
 	while (ProcessMessage() != -1)
 	{
@@ -38,6 +42,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		// ゲームの処理
 		pScene->Update();
 		pScene->Draw();
+
+		/*pBg->Update();
+		pBg->Draw();*/
 
 		// 画面が切り替わるのを待つ
 		ScreenFlip();

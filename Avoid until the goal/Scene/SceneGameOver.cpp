@@ -23,8 +23,8 @@ SceneGameOver::~SceneGameOver()
 
 void SceneGameOver::Init()
 {
-	m_graphOver = LoadGraph("data/GameOver.png");
-	m_graphClick = LoadGraph("data/ClickSpaceToTitle.png");
+	m_graphOver = LoadGraph("data/GameOver2.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToTitle2.png");
 }
 
 std::shared_ptr<SceneBase> SceneGameOver::Update()
@@ -54,12 +54,12 @@ void SceneGameOver::Draw()
 
 
 #ifdef _DEBUG
-	DrawFormatString(0, 16, 0xFFFFFF, "%d", m_displayCount);
+	/*DrawFormatString(0, 16, 0xFFFFFF, "%d", m_displayCount);
 
 	if (m_isSpace == true)
 	{
 		DrawString(0, 0, "SpaceÉLÅ[ì¸óÕ", 0xFFFFFF);
-	}
+	}*/
 #endif
 }
 

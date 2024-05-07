@@ -29,10 +29,10 @@ Player::Player() :
 	m_isOnGround(true),
 	m_isJump(false)
 {
-	m_modelHandle = MV1LoadModel("data/Robot.mv1");
+	m_modelHandle = MV1LoadModel("data/SceneGame/model/Robot.mv1");
 	assert(m_modelHandle != -1);
 
-	m_pos = VGet(1, 0, 0);
+	m_pos = VGet(0, 0, 0);
 	m_velocity = VGet(0, 0, 0);
 	m_dir = VGet(0, 0, 1);
 }
@@ -53,24 +53,23 @@ void Player::Update()
 	}
 	else
 	{
-		m_gravity = kGravity;					// 重力を初期値に直す
+		m_gravity = kGravity;						// 重力を初期値に直す
 
-		m_isOnGround = true;					// 地面についている
-		m_isJump = false;						// ジャンプ(上昇)していない
+		m_isOnGround = true;						// 地面についている
+		m_isJump = false;							// ジャンプ(上昇)していない
 
 		m_jumpCount = 0;
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_10))	// Spaceキーを押した且つ地面についている
+	if (Pad::IsTrigger(PAD_INPUT_10))				// Spaceキーを押した且つ地面についている
 	{
-		m_isJump = true;						// ジャンプしている
+		m_isJump = true;							// ジャンプしている
 		m_jumpCount += 1;
 	}
-	if (m_isJump == true)		// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
+	if (m_isJump == true)							// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
 	{
-
 		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));
-		if (m_jumpCount == 2)
+		if (m_jumpCount >= 2)
 		{
 			m_pos = VAdd(m_pos, VGet(0, kJumpPow * 0.5f, 0));
 		}
@@ -116,16 +115,16 @@ void Player::Draw()
 	MV1DrawModel(m_modelHandle);
 
 #ifdef _DEBUG
-	//DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
-	//DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);
-	//DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
-	//DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
+	////DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
+	////DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);
+	////DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
+	////DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
 
-	DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
+	/*DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
 	DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
-	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
+	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);*/
 
 	// 当たり判定の表示
-	m_colRect.Draw(0xFFFFFF, false); 
+	//m_colRect.Draw(0xFFFFFF, false); 
 #endif
 }
