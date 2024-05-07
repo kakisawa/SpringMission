@@ -45,11 +45,15 @@ SceneGame::SceneGame() :
 	m_timeStartCount(kCountTime_Display),
 	m_displayCount(0),
 	m_timeCount(0.0f),
+	m_fadeAlpha(255),
 	m_enemyInterval(0),
 	m_isTimeStartCountFlag(false),
 	m_isTimeCountFlag(false),
 	m_isGameOverFlag(false),
 	m_isGameClearFlag(false),
+	m_isFadeIn(false),
+	m_isFadeOut(false),
+	m_isSceneEnd(false),
 	m_graph20sHavePassed(-1),
 	m_graph40sHavePassed(-1)
 {
@@ -65,6 +69,7 @@ SceneGame::~SceneGame()
 	DeleteGraph(m_graph40sHavePassed);
 	DeleteGraph(m_graph60sHavePassed);
 	DeleteGraph(m_graph80sHavePassed);
+	DeleteGraph(m_graphExplanation);
 	DeleteGraph(m_graphClick);
 }
 
@@ -85,7 +90,12 @@ shared_ptr<SceneBase> SceneGame::Update()
 {
 	Pad::Update();
 	m_pCamera->Update(*m_pPlayer);
-	
+
+	// ゲームオーバー
+	if (m_isGameOverFlag == true)
+	{
+		m_isFadeOut = true;
+	}
 
 	if (Pad::IsTrigger(PAD_INPUT_10))
 	{
@@ -103,7 +113,7 @@ shared_ptr<SceneBase> SceneGame::Update()
 		}
 	}
 
-	if (m_isTimeCountFlag == true && m_timeCount <= kCountTime_Finish)
+	if (m_isTimeCountFlag == true && m_timeCount <= kCountTime_Finish && m_isGameOverFlag == false)
 	{
 		m_timeCount++;
 
@@ -129,19 +139,48 @@ shared_ptr<SceneBase> SceneGame::Update()
 	}
 	m_displayCount++;
 
+	// ゲームクリア
 	if (m_timeCount >= kCountTime_Finish)
 	{
-		return make_shared<SceneGameClear>();
-	}
-	if (m_isGameOverFlag == true)
-	{
-		return make_shared<SceneGameOver>();
+		m_isFadeOut = true;
 	}
 
-	/*
-	Pad::IsTrigger(PAD_INPUT_1) ||
-	Pad::IsTrigger(PAD_INPUT_2)||
-	*/
+	
+
+	if (m_isFadeOut == true)
+	{
+		// フェードイン
+		m_fadeAlpha += 8;
+		if (m_fadeAlpha > 255)
+		{
+			m_fadeAlpha = 255;
+			m_isSceneEnd = true;
+		}
+
+		if (m_isSceneEnd == true)
+		{
+			if (m_isGameClearFlag == true)
+			{
+				return make_shared<SceneGameClear>();
+			}
+			else if (m_isGameOverFlag == true)
+			{
+				return make_shared<SceneGameOver>();
+			}
+		}
+	}
+
+	if (m_isFadeIn == false)
+	{
+		// フェードアウト
+		m_fadeAlpha -= 8;
+		if (m_fadeAlpha < 0)
+		{
+			m_fadeAlpha = 0;
+			m_isFadeIn = true;
+		}
+	}
+
 
 	return shared_from_this();	// 自身のshared_ptrを返す
 }
@@ -235,6 +274,11 @@ void SceneGame::Draw()
 				m_graph80sHavePassed, true);
 		}
 	}
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeAlpha);	// 半透明で表示開始
+	DrawBoxAA(0, 0, kScreenWidth, kScreenHeight,
+		0x00000, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		// 不透明に戻しておく
 }
 
 namespace {

@@ -18,7 +18,7 @@ public:
 	virtual ~SceneGame();
 
 	virtual void Init();
-	virtual std::shared_ptr<SceneBase> Update();
+	virtual shared_ptr<SceneBase> Update();
 	virtual void Draw();
 	virtual void End() {};
 
@@ -39,12 +39,17 @@ private:
 	float m_timeStartCount;		// ゲームスタートカウント
 	float m_timeCount;			// 経過時間カウント
 	int m_displayCount;
+	int m_fadeAlpha;        // フェードイン、アウト
 
 	bool m_isTimeStartCountFlag;// ゲームスタートカウントフラグ	
 	bool m_isTimeCountFlag;		// 経過時間カウント開始フラグ
 
 	bool m_isGameOverFlag;		// ゲームオーバーフラグ
 	bool m_isGameClearFlag;		// ゲームクリアフラグ
+
+	bool m_isFadeIn;		// フェードイン用のフラグ
+	bool m_isFadeOut;		// フェードアウト用のフラグ
+	bool m_isSceneEnd;		// シーン遷移用のフラグ
 
 	int m_enemyInterval;
 
