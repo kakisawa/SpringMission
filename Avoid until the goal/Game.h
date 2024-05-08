@@ -9,5 +9,5 @@ namespace
 	constexpr int kColorDepth = 16;
 
 	// ínñ ÇÃçÇÇ≥
-	constexpr int kGroundHeight = 300.0f;
+	constexpr float kGroundHeight = 300.0f;
 }

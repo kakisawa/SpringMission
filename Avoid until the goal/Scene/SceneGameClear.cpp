@@ -50,10 +50,20 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 	}
 	m_displayCount++;
 
+	// フェードアウト
+	if (m_isFadeIn == false)
+	{
+		m_fadeAlpha -= 8;
+		if (m_fadeAlpha < 0)
+		{
+			m_fadeAlpha = 0;
+			m_isFadeIn = true;
+		}
+	}
+
 	// フェードイン
 	if (m_isFadeOut == true)
 	{
-
 		m_fadeAlpha += 8;
 		if (m_fadeAlpha > 255)
 		{
@@ -67,16 +77,7 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 		}
 	}
 
-	// フェードアウト
-	if (m_isFadeIn == false)
-	{
-		m_fadeAlpha -= 8;
-		if (m_fadeAlpha < 0)
-		{
-			m_fadeAlpha = 0;
-			m_isFadeIn = true;
-		}
-	}
+	
 
 	return shared_from_this();	// 自身のshared_ptrを返す
 }

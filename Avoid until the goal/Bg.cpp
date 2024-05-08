@@ -76,7 +76,7 @@ void Bg::Draw()
 	int scrollBg4 = static_cast<int>(m_scrollX_4) % static_cast<int>(bgSize.m_width * kBgScale);
 
 	// ˆê”Ô‰º
-	DrawRotaGraph2(m_pos.x, m_pos.y,
+	DrawRotaGraph2(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y),
 		0, 0,
 		kBgScale, 0.0f,
 		m_bg1, true);
@@ -85,7 +85,7 @@ void Bg::Draw()
 	for (int index = 0; index < 4; index++)
 	{
 		DrawRotaGraph2(-scrollBg + index * bgSize.m_width * kBgScale,
-			m_pos.y,
+			static_cast<int>(m_pos.y),
 			0, 0,
 			kBgScale, 0.0f,
 			m_bg2, true);
@@ -94,7 +94,7 @@ void Bg::Draw()
 	for (int index = 0; index < 4; index++)
 	{
 		DrawRotaGraph2(-scrollBg2 + index * bgSize.m_width * kBgScale,
-			m_pos.y,
+			static_cast<int>(m_pos.y),
 			0, 0,
 			kBgScale, 0.0f,
 			m_bg3, true);
@@ -103,7 +103,7 @@ void Bg::Draw()
 	for (int index = 0; index < 4; index++)
 	{
 		DrawRotaGraph2(-scrollBg3 + index * bgSize.m_width * kBgScale,
-			m_pos.y,
+			static_cast<int>(m_pos.y),
 			0, 0,
 			kBgScale, 0.0f,
 			m_bg4, true);
@@ -112,10 +112,9 @@ void Bg::Draw()
 	for (int index = 0; index < 4; index++)
 	{
 		DrawRotaGraph2(-scrollBg4 + index * bgSize.m_width * kBgScale,
-			m_pos.y,
+			static_cast<int>(m_pos.y),
 			0, 0,
 			kBgScale, 0.0f,
 			m_bg5, true);
 	}
-
 }

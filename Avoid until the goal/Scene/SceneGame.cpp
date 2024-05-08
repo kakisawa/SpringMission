@@ -37,16 +37,15 @@ namespace {
 	constexpr float kCountTime_60s = 3600.0f;
 	constexpr float kCountTime_80s = 4800.0f;
 
-	constexpr float kCountTime_Display = 180.0f;	// ƒQ[ƒ€Œo‰ßŠÔ’m•`‰æŠÔ(3•b)
-	constexpr float kCountTime_Finish = 5400.0f;	// ƒQ[ƒ€ŠÔ(90•b)
+	constexpr int kCountTime_Display = 180;	// ƒQ[ƒ€Œo‰ßŠÔ’m•`‰æŠÔ(3•b)
+	constexpr int kCountTime_Finish = 5400;	// ƒQ[ƒ€ŠÔ(90•b)
 }
 
 SceneGame::SceneGame() :
 	m_timeStartCount(kCountTime_Display),
 	m_displayCount(0),
-	m_timeCount(0.0f),
+	m_timeCount(5300.0f),
 	m_fadeAlpha(255),
-	m_enemyInterval(0),
 	m_isTimeStartCountFlag(false),
 	m_isTimeCountFlag(false),
 	m_isGameOverFlag(false),
@@ -54,8 +53,13 @@ SceneGame::SceneGame() :
 	m_isFadeIn(false),
 	m_isFadeOut(false),
 	m_isSceneEnd(false),
+	m_graphCount1(-1),
+	m_graphCount2(-1),
+	m_graphCount3(-1),
 	m_graph20sHavePassed(-1),
-	m_graph40sHavePassed(-1)
+	m_graph40sHavePassed(-1),
+	m_graph60sHavePassed(-1),
+	m_graph80sHavePassed(-1)
 {
 	CreateEnemy();
 }
@@ -80,7 +84,7 @@ void SceneGame::Init()
 	m_graph60sHavePassed = LoadGraph("data/SceneGame/60_progress2.png");
 	m_graph80sHavePassed = LoadGraph("data/SceneGame/80_progress2.png");
 	m_graphExplanation = LoadGraph("data/SceneGame/Eexplanation2.png");
-	m_graphClick = LoadGraph("data/SceneGame/ClickSpaceToGame2.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToGame2.png");
 	m_graphCount1 = LoadGraph("data/SceneGame/Count1.png");
 	m_graphCount2 = LoadGraph("data/SceneGame/Count2.png");
 	m_graphCount3 = LoadGraph("data/SceneGame/Count3.png");
@@ -143,6 +147,7 @@ shared_ptr<SceneBase> SceneGame::Update()
 	if (m_timeCount >= kCountTime_Finish)
 	{
 		m_isFadeOut = true;
+		m_isGameClearFlag = true;
 	}
 
 	

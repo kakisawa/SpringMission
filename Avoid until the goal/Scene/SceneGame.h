@@ -9,7 +9,6 @@ class Camera;
 class Player;
 class Enemy;
 class Bg;
-
 class SceneGame :
 	public SceneBase
 {
@@ -22,43 +21,39 @@ public:
 	virtual void Draw();
 	virtual void End() {};
 
-	void CreateEnemy();
+	void CreateEnemy();			// 敵生成関数
 
 private:
 	// 経過時間画像
-	int m_graph20sHavePassed;
-	int m_graph40sHavePassed;
-	int m_graph60sHavePassed;
-	int m_graph80sHavePassed;
-	int m_graphExplanation;
-	int m_graphClick;
-	int m_graphCount3;
-	int m_graphCount2;
-	int m_graphCount1;
+	int m_graph20sHavePassed;	// 20秒経過
+	int m_graph40sHavePassed;	// 40秒経過
+	int m_graph60sHavePassed;	// 60秒経過
+	int m_graph80sHavePassed;	// 80秒経過
+	// ゲーム開始カウントダウン画像
+	int m_graphCount3;			// 3
+	int m_graphCount2;			// 2
+	int m_graphCount1;			// 1
+	int m_graphExplanation;		// ゲーム説明画像
+	int m_graphClick;			// 「Spaceキーでスタート」画像
 
-	float m_timeStartCount;		// ゲームスタートカウント
-	float m_timeCount;			// 経過時間カウント
-	int m_displayCount;
-	int m_fadeAlpha;        // フェードイン、アウト
+	int m_displayCount;			// 「Spaceキーでスタート」点滅表示用カウント
+	int m_timeStartCount;		// ゲーム開始カウントダウン用カウント
+	int m_fadeAlpha;			// フェードイン・アウト
+	float m_timeCount;			// ゲーム経過時間用カウント
 
-	bool m_isTimeStartCountFlag;// ゲームスタートカウントフラグ	
-	bool m_isTimeCountFlag;		// 経過時間カウント開始フラグ
+	bool m_isTimeStartCountFlag;// ゲーム開始カウント用フラグ	
+	bool m_isTimeCountFlag;		// ゲーム経過時間カウント用フラグ
+	bool m_isGameOverFlag;		// ゲームオーバー用フラグ
+	bool m_isGameClearFlag;		// ゲームクリア用フラグ
+	bool m_isFadeIn;			// フェードイン用フラグ
+	bool m_isFadeOut;			// フェードアウト用フラグ
+	bool m_isSceneEnd;			// シーン遷移用フラグ
 
-	bool m_isGameOverFlag;		// ゲームオーバーフラグ
-	bool m_isGameClearFlag;		// ゲームクリアフラグ
-
-	bool m_isFadeIn;		// フェードイン用のフラグ
-	bool m_isFadeOut;		// フェードアウト用のフラグ
-	bool m_isSceneEnd;		// シーン遷移用のフラグ
-
-	int m_enemyInterval;
-
+	// 敵の数
 	int m_enemyNum = 90;
-	
 
 	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
 	shared_ptr<Player> m_pPlayer = make_shared<Player>();
-	vector<shared_ptr<Enemy>> m_pEnemy;
-
 	shared_ptr<Bg> m_pBg = make_shared<Bg>();
+	vector<shared_ptr<Enemy>> m_pEnemy;
 };

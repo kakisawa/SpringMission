@@ -14,7 +14,7 @@ public:
 
 private:
 	int m_graphOver;		// 「GameClear」画像
-	int m_graphClick;		// 「Spaceキーをクリック」画像
+	int m_graphClick;		// 「Spaceキーでスタート」画像
 	int m_graphBg1;				// 背景画像
 	int m_graphBg2;
 	int m_graphBg3;

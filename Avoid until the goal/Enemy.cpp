@@ -38,9 +38,9 @@ Enemy::~Enemy()
 
 void Enemy::Update()
 {
-	// 当たり判定の更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y, m_pos.z,
-		kWidht, kHeight);
+	//// 当たり判定の更新
+	//m_colRect.SetCenter(m_pos.x, m_pos.y, m_pos.z,
+	//	kWidht, kHeight);
 
 	m_dir = VGet(0, 0, 0);
 	//m_dir = VAdd(m_dir, VGet(1, 0, 0));

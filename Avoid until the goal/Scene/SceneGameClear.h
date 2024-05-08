@@ -14,7 +14,7 @@ public:
 
 private:
 	int m_graphClear;		// 「GameClear」画像
-	int m_graphClick;		// 「Spaceキーをクリック」画像
+	int m_graphClick;		// 「Spaceキーでスタート」画像
 	int m_graphBg;				// 背景画像
 
 	int m_displayCount;		// 「Spaceキーをクリック」表示カウント
