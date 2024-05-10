@@ -33,32 +33,37 @@ void SoundManager::End()
 {
 }
 
+void SoundManager::Ring(int s)
+{
+	PlaySoundMem(s, DX_PLAYTYPE_BACK, true);
+}
+
 void SoundManager::SoundButton()
 {
-	PlaySoundMem(m_bgmButtle, DX_PLAYTYPE_BACK, true);
+	Ring(m_bgmButtle);
 }
 
 void SoundManager::SoundJump()
 {
-	PlaySoundMem(m_soundJump, DX_PLAYTYPE_BACK, true);
+	Ring(m_soundJump);
 }
 
 void SoundManager::BGMDefo()
 {
-	PlaySoundMem(m_bgmDefo, DX_PLAYTYPE_BACK, true);
+	Ring(m_bgmDefo);
 }
 
 void SoundManager::BGMButtle()
 {
-	PlaySoundMem(m_bgmButtle, DX_PLAYTYPE_BACK, true);
+	Ring(m_bgmButtle);
 }
 
 void SoundManager::BGMGameClear()
 {
-	PlaySoundMem(m_bgmGameClear, DX_PLAYTYPE_BACK, true);
+	Ring(m_bgmGameClear);
 }
 
 void SoundManager::BGMGameOver()
 {
-	PlaySoundMem(m_bgmGameOver, DX_PLAYTYPE_BACK, true);
+	Ring(m_bgmGameOver);
 }
