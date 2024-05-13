@@ -10,7 +10,7 @@ public:
 	virtual ~SceneManager();
 
 	void Init();
-	void Update(const SoundManager& mng);
+	void Update();
 	void Draw();
 	void End();
 

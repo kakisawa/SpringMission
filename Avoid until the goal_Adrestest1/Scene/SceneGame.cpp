@@ -8,9 +8,9 @@
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
+#include "SoundManager.h"
 
 using namespace std;
-class SoundManager;
 
 namespace {
 	// ゲーム開始前説明描画位置
@@ -63,6 +63,7 @@ SceneGame::SceneGame() :
 	m_graph80sHavePassed(-1)
 {
 	CreateEnemy();
+	m_pSound->BGMButtle();
 }
 
 SceneGame::~SceneGame()
@@ -76,6 +77,8 @@ SceneGame::~SceneGame()
 	DeleteGraph(m_graph80sHavePassed);
 	DeleteGraph(m_graphExplanation);
 	DeleteGraph(m_graphClick);
+
+	m_pSound->StopBGMButtle();
 }
 
 void SceneGame::Init()
@@ -91,7 +94,7 @@ void SceneGame::Init()
 	m_graphCount3 = LoadGraph("data/SceneGame/Count3.png");
 }
 
-shared_ptr<SceneBase> SceneGame::Update(const SoundManager& mng)
+shared_ptr<SceneBase> SceneGame::Update()
 {
 	Pad::Update();
 	m_pCamera->Update(*m_pPlayer);
@@ -150,8 +153,6 @@ shared_ptr<SceneBase> SceneGame::Update(const SoundManager& mng)
 		m_isFadeOut = true;
 		m_isGameClearFlag = true;
 	}
-
-	
 
 	if (m_isFadeOut == true)
 	{

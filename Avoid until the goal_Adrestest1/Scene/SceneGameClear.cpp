@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
+#include "SoundManager.h"
 
 namespace {
 	constexpr float kTitleGraphPosX = kScreenWidth * 0.15f;
@@ -17,8 +18,12 @@ SceneGameClear::SceneGameClear():
 	m_isSpace(false),
 	m_isFadeIn(false),
 	m_isFadeOut(false),
-	m_isSceneEnd(false)
+	m_isSceneEnd(false),
+	m_graphBg(-1),
+	m_graphClick(-1),
+	m_graphClear(-1)
 {
+	m_pSound->BGMGameClear();
 }
 
 SceneGameClear::~SceneGameClear()
@@ -26,6 +31,8 @@ SceneGameClear::~SceneGameClear()
 	DeleteGraph(m_graphClear);
 	DeleteGraph(m_graphClick);
 	DeleteGraph(m_graphBg);
+
+	m_pSound->StopBGMGameClear();
 }
 
 void SceneGameClear::Init()
@@ -35,7 +42,7 @@ void SceneGameClear::Init()
 	m_graphBg = LoadGraph("data/Bg/forest5.png");
 }
 
-std::shared_ptr<SceneBase> SceneGameClear::Update(const SoundManager& mng)
+std::shared_ptr<SceneBase> SceneGameClear::Update()
 {
 	Pad::Update();
 

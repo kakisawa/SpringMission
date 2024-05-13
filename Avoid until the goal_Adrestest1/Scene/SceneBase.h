@@ -3,7 +3,6 @@
 
 using namespace std;
 
-class SoundManager;
 class SceneBase : 
 	public enable_shared_from_this<SceneBase>
 {
@@ -12,7 +11,7 @@ public:
 	virtual ~SceneBase() {}			// 継承元は必ずvirtualにする
 	virtual void Init() = 0;		// シーンに入る時の初期化処理
 
-	virtual shared_ptr<SceneBase> Update(const SoundManager& mng) = 0;
+	virtual shared_ptr<SceneBase> Update() = 0;
 	// シーンを変更する場合は遷移先のシーンのポインタ
 		// シーン変更しない場合は自身のポインタ
 

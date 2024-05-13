@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
+#include "SoundManager.h"
 
 namespace {
 	constexpr float kTitleGraphPosX = kScreenWidth * 0.15f;
@@ -18,8 +19,12 @@ SceneTitle::SceneTitle() :
 	m_isSpace(false),
 	m_isFadeIn(false),
 	m_isFadeOut(false),
-	m_isSceneEnd(false)
+	m_isSceneEnd(false),
+	m_graphBg(-1),
+	m_graphClick(-1),
+	m_graphTitle(-1)
 {
+	m_pSound->BGMDefo();
 }
 
 SceneTitle::~SceneTitle()
@@ -27,6 +32,8 @@ SceneTitle::~SceneTitle()
 	DeleteGraph(m_graphTitle);
 	DeleteGraph(m_graphClick);
 	DeleteGraph(m_graphBg);
+
+	m_pSound->StopBGMDefo();
 }
 
 void SceneTitle::Init()
@@ -36,11 +43,10 @@ void SceneTitle::Init()
 	m_graphBg = LoadGraph("data/Bg/foggy-forest2.png");
 }
 
-std::shared_ptr<SceneBase> SceneTitle::Update(const SoundManager& mng)
+std::shared_ptr<SceneBase> SceneTitle::Update()
 {
 	Pad::Update();
 
-	mng.BGMDefo();
 
 	if (Pad::IsTrigger(PAD_INPUT_10))
 	{

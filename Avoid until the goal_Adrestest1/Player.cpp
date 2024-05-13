@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Rect.h"
 #include <cassert>
+#include "SoundManager.h"
 
 namespace {
 	constexpr int kJumpMaxCount = 2;	// ジャンプ上限回数
@@ -63,6 +64,8 @@ void Player::Update()
 
 	if (Pad::IsTrigger(PAD_INPUT_10))				// Spaceキーを押した且つ地面についている
 	{
+		m_pSound->SoundJump();
+
 		m_isJump = true;							// ジャンプしている
 		m_jumpCount += 1;
 	}

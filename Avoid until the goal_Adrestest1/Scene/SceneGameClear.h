@@ -1,5 +1,7 @@
 #pragma once
 #include "SceneBase.h"
+
+using namespace std;
 class SoundManager;
 class SceneGameClear :
 	public SceneBase
@@ -9,7 +11,7 @@ public:
 	virtual ~SceneGameClear();
 
 	virtual void Init();
-	virtual std::shared_ptr<SceneBase> Update(const SoundManager& mng);
+	virtual shared_ptr<SceneBase> Update();
 	virtual void Draw();
 	virtual void End();
 
@@ -25,5 +27,7 @@ private:
 	bool m_isFadeIn;		// フェードイン用のフラグ
 	bool m_isFadeOut;		// フェードアウト用のフラグ
 	bool m_isSceneEnd;		// シーン遷移用のフラグ
+
+	shared_ptr<SoundManager> m_pSound = make_shared<SoundManager>();
 };
 

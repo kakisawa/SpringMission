@@ -5,12 +5,13 @@ public:
 	SoundManager();
 	~SoundManager();
 
-	void Init();
+	void Init(){}
 	void Update() {}
-	void Draw();
-	void End();
+	void Draw(){}
+	void End(){}
 
 	void Ring(int s);
+	void Stop(int s);
 	
 	// SE
 	void SoundButton();
@@ -22,6 +23,15 @@ public:
 	void BGMGameClear();
 	void BGMGameOver();
 
+	// SE
+	void StopSoundButton();
+	void StopSoundJump();
+
+	// BGM
+	void StopBGMDefo();
+	void StopBGMButtle();
+	void StopBGMGameClear();
+	void StopBGMGameOver();
 
 private:
 	// Še‰¹Œ¹

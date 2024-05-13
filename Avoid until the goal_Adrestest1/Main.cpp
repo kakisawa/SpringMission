@@ -27,8 +27,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	shared_ptr<SceneManager> pScene = make_shared<SceneManager>();
 	pScene->Init();
 
-	SoundManager soundManager;
-
 	// ゲームループ
 	while (ProcessMessage() != -1)
 	{
@@ -39,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ゲームの処理
-		pScene->Update(soundManager);
+		pScene->Update();
 		pScene->Draw();
 
 		// 画面が切り替わるのを待つ

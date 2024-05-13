@@ -1,10 +1,8 @@
 #pragma once
 #include "SceneBase.h"
-#include <memory>
 #include <vector>
 
 using namespace std;
-
 class Camera;
 class Player;
 class Enemy;
@@ -18,7 +16,7 @@ public:
 	virtual ~SceneGame();
 
 	virtual void Init();
-	virtual shared_ptr<SceneBase> Update(const SoundManager& mng);
+	virtual shared_ptr<SceneBase> Update();
 	virtual void Draw();
 	virtual void End() {};
 
@@ -57,4 +55,6 @@ private:
 	shared_ptr<Player> m_pPlayer = make_shared<Player>();
 	shared_ptr<Bg> m_pBg = make_shared<Bg>();
 	vector<shared_ptr<Enemy>> m_pEnemy;
+
+	shared_ptr<SoundManager> m_pSound = make_shared<SoundManager>();
 };

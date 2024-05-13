@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
+#include "SoundManager.h"
 
 namespace {
 	constexpr float kTitleGraphPosX = kScreenWidth * 0.15f;
@@ -17,8 +18,14 @@ SceneGameOver::SceneGameOver() :
 	m_isSpace(false),
 	m_isFadeIn(false),
 	m_isFadeOut(false),
-	m_isSceneEnd(false)
+	m_isSceneEnd(false),
+	m_graphBg1(-1),
+	m_graphBg2(-1),
+	m_graphBg3(-1),
+	m_graphClick(-1),
+	m_graphOver(-1)
 {
+	m_pSound->BGMGameOver();
 }
 
 SceneGameOver::~SceneGameOver()
@@ -28,6 +35,8 @@ SceneGameOver::~SceneGameOver()
 	DeleteGraph(m_graphBg1);
 	DeleteGraph(m_graphBg2);
 	DeleteGraph(m_graphBg3);
+
+	m_pSound->StopBGMGameOver();
 }
 
 void SceneGameOver::Init()
@@ -39,7 +48,7 @@ void SceneGameOver::Init()
 	m_graphBg3 = LoadGraph("data/bg/background_layer_3.png");
 }
 
-std::shared_ptr<SceneBase> SceneGameOver::Update(const SoundManager& mng)
+std::shared_ptr<SceneBase> SceneGameOver::Update()
 {
 	Pad::Update();
 

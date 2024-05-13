@@ -18,9 +18,9 @@ void SceneManager::Init()
 	m_pScene->Init();
 }
 
-void SceneManager::Update(const SoundManager& mng)
+void SceneManager::Update()
 {
-	std::shared_ptr<SceneBase> pNext = m_pScene->Update(mng);
+	std::shared_ptr<SceneBase> pNext = m_pScene->Update();
 	if (pNext != m_pScene)
 	{
 		// Œ»İ‚ÌƒV[ƒ“‚ÌI—¹ˆ—

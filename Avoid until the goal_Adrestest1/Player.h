@@ -1,7 +1,11 @@
 #pragma once
 #include "DxLib.h"
 #include "Rect.h"
+#include <memory>
 
+using namespace std;
+
+class SoundManager;
 class Player final
 {
 public:
@@ -35,5 +39,6 @@ private:
 	// Ã“I’è”.
 	static const float m_speed;
 	static const float m_scale;
-};
 
+	shared_ptr<SoundManager> m_pSound = make_shared<SoundManager>();
+};
