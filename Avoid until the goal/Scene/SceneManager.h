@@ -2,13 +2,12 @@
 #include <memory>
 
 using namespace std;
-class SceneSound;
 class SceneBase;
 class SceneManager
 {
 public:
 	SceneManager();
-	virtual ~SceneManager();
+	virtual ~SceneManager(){}
 
 	void Init();
 	void Update();

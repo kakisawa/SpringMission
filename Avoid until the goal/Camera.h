@@ -6,12 +6,10 @@ class Camera
 {
 public:
 	Camera();
-	~Camera();
+	~Camera(){}
 
 	void Update(const Player& player);
 
-	const VECTOR& Getpos() const { return m_pos; }
-
 private:
-	VECTOR m_pos;
+	VECTOR m_pos;		// ƒJƒƒ‰À•W
 };

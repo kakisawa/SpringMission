@@ -43,7 +43,7 @@ namespace {
 SceneGame::SceneGame() :
 	m_timeStartCount(kCountTime_Display),
 	m_displayCount(0),
-	m_timeCount(5300.0f),
+	m_timeCount(5.0f),
 	m_fadeAlpha(255),
 	m_isFadeIn(false),
 	m_isFadeOut(false),

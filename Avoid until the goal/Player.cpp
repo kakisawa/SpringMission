@@ -7,14 +7,14 @@
 
 namespace {
 	constexpr int kJumpMaxCount = 2;	// ジャンプ上限回数
-
 	constexpr float kGravity = 0.18f;	// 重力
 	constexpr float kJumpPow = 0.4f;	// ジャンプ力
 
+	// プレイヤー当たり判定サイズ
 	constexpr float kWidht = 50.0f;
 	constexpr float kHeight = 65.0f;
 
-	constexpr float kColPosAdjustment = 0.5f;
+	constexpr float kColPosAdjustment = 0.5f;	// 当たり判定調整用
 }
 
 // 静的定数
@@ -30,52 +30,54 @@ Player::Player() :
 	m_isOnGround(true),
 	m_isJump(false)
 {
+	// モデル読み込み
 	m_modelHandle = MV1LoadModel("data/SceneGame/model/Robot.mv1");
 	assert(m_modelHandle != -1);
 
-	m_pos = VGet(0, 0, 0);
-	m_velocity = VGet(0, 0, 0);
+	m_pos = VGet(0, 0, 0);		// プレイヤー初期座標
+	m_velocity = VGet(0, 0, 0);	
 	m_dir = VGet(0, 0, 1);
 
-	m_pSound->LoadSE();
+	m_pSound->LoadSE();			// SEロード
 }
 
 Player::~Player()
 {
-	// モデルのアンロード.
+	// モデル削除
 	MV1DeleteModel(m_modelHandle);
 	m_pSound->Unload();
 }
 
 void Player::Update()
 {
+	// プレイヤーが地面より上にいる場合
 	if (m_pos.y >= 0)
 	{
-		m_pos = VSub(m_pos, VGet(0, m_gravity, 0));	// 重力
-		m_isOnGround = false;						// 地面についていない
-		m_gravity += 0.01f;							// 重力加速
+		m_pos = VSub(m_pos, VGet(0, m_gravity, 0));	// 重力を掛ける
+		m_isOnGround = false;			// 地面についているかのフラグをfalseにする
+		m_gravity += 0.01f;				// 重力加速
 	}
-	else
+	else // プレイヤーが地面に着いている場合
 	{
 		m_gravity = kGravity;						// 重力を初期値に直す
+		m_isOnGround = true;			// 地面についているかのフラグをtrueにする
+		m_isJump = false;				// ジャンプしているかのフラグをfalseにする
 
-		m_isOnGround = true;						// 地面についている
-		m_isJump = false;							// ジャンプ(上昇)していない
-
-		m_jumpCount = 0;
+		m_jumpCount = 0;				// ジャンプの回数を初期値に戻す
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_10))				// Spaceキーを押した且つ地面についている
+	/*ジャンプ挙動*/
+	if (Pad::IsTrigger(PAD_INPUT_10))
 	{
 		if (m_jumpCount < 2)
 		{
-			m_pSound->SoundJump();
+			m_pSound->SoundJump();	// ジャンプのSEを鳴らす
 		}
 
-		m_isJump = true;							// ジャンプしている
-		m_jumpCount += 1;
+		m_isJump = true;			// ジャンプしているかのフラグをtrueにする
+		m_jumpCount += 1;			// ジャンプの回数を1増やす
 	}
-	if (m_isJump == true)							// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
+	if (m_isJump == true)	// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
 	{
 		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));
 		if (m_jumpCount >= 2)
@@ -94,7 +96,7 @@ void Player::Update()
 		m_dir = VNorm(m_dir);
 	}
 
-	// ポジションを更新.
+	// ポジションを更新
 	m_velocity = VScale(m_dir, m_speed);
 	m_pos = VAdd(m_pos, m_velocity);
 
@@ -104,10 +106,10 @@ void Player::Update()
 		m_dir = VNorm(m_velocity);
 	}
 
-	// 3Dモデルのスケール決定
+	// プレイヤーのスケール決定
 	MV1SetScale(m_modelHandle, VGet(m_scale, m_scale, m_scale));
 
-	// ３Dモデルのポジション設定
+	// プレイヤーのポジション設定
 	MV1SetPosition(m_modelHandle, m_pos);
 
 	// 回転
@@ -120,20 +122,20 @@ void Player::Update()
 
 void Player::Draw()
 {
-	// ３Ｄモデルの描画
+	// プレイヤー描画
 	MV1DrawModel(m_modelHandle);
 
 #ifdef _DEBUG
-	////DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
-	////DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);
-	////DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
-	////DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
+	//DrawFormatString(0, 0, 0xFFFFFF, "m_isJump=%d", m_isJump);
+	//DrawFormatString(0, 20, 0xFFFFFF, "m_isOnGround=%d", m_isOnGround);
+	//DrawFormatString(0, 0, 0xFFFFFF, "m_jumpCount=%d", m_jumpCount);
+	//DrawFormatString(0, 150, 0xFFFFFF, "m_gravity=%f", m_gravity);
 
-	/*DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
-	DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
-	DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);*/
+	//DrawFormatString(500, 300, 0xFFFFFF, "m_pos.x=%.2f", m_pos.x);
+	//DrawFormatString(500, 320, 0xFFFFFF, "m_pos.y=%.2f", m_pos.y);
+	//DrawFormatString(500, 340, 0xFFFFFF, "m_pos.z=%.2f", m_pos.z);
 
-	// 当たり判定の表示
+	//// 当たり判定の表示
 	//m_colRect.Draw(0xFFFFFF, false); 
 #endif
 }

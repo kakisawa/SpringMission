@@ -1,10 +1,8 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "SceneManager.h"
-#include "SoundManager.h"
-
 #include <iostream>
-#include <memory>		// スマートポインタを使用するのに必要
+#include <memory>
 #include <vector>
 
 using namespace std;
@@ -27,9 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	shared_ptr<SceneManager> pScene = make_shared<SceneManager>();
 	pScene->Init();
-	/*shared_ptr<SoundManager> pSound = make_shared<SoundManager>();
-	pSound->Load();*/
-	
+
 	// ゲームループ
 	while (ProcessMessage() != -1)
 	{
@@ -58,8 +54,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			// 16.66ミリ秒(16667マイクロ秒)経過するまで待つ
 		}
 	}
-
-	//pSound->Unload();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

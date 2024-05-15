@@ -1,59 +1,60 @@
-#include "SceneGameClear.h"
 #include "SceneTitle.h"
+#include "SceneGame.h"
+#include "SoundManager.h"
 #include "Game.h"
 #include "Pad.h"
 #include "DxLib.h"
 #include "SoundManager.h"
 
 namespace {
-	// 「ゲームクリア」画像座標
+	// 「Avoid until the goal」画像座標
 	constexpr float kTitleGraphPosX = kScreenWidth * 0.15f;
 	constexpr float kTitleGraphPosY = kScreenHeight * 0.2f;
 	// 「Spaceキーをクリック」画像座標
-	constexpr float kClickGraphPosX = kScreenWidth * 0.2f;
+	constexpr float kClickGraphPosX = kScreenWidth * 0.28f;
 	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
 }
 
-SceneGameClear::SceneGameClear():
+SceneTitle::SceneTitle() :
 	m_displayCount(0),
 	m_fadeAlpha(255),
 	m_isSpace(false),
-	m_isFadeIn(false),
+	m_isFadeIn(true),
 	m_isFadeOut(false),
 	m_isSceneEnd(false),
 	m_graphBg(-1),
 	m_graphClick(-1),
-	m_graphClear(-1)
+	m_graphTitle(-1)
 {
 	// 画像読み込み
-	m_graphClear = LoadGraph("data/GameClear2.png");
-	m_graphClick = LoadGraph("data/ClickSpaceToTitle2.png");
-	m_graphBg = LoadGraph("data/Bg/forest5.png");
+	m_graphTitle = LoadGraph("data/Title2.png");
+	m_graphClick = LoadGraph("data/ClickSpaceToGame2.png");
+	m_graphBg = LoadGraph("data/Bg/foggy-forest2.png");
 
-	m_pSound->LoadSE();			// SEロード
-	m_pSound->BGMGameClear();	// BGMを流す
+	m_pSound->LoadSE();		// SEロード
+	m_pSound->BGMDefo();	// BGMを流す
 }
 
-SceneGameClear::~SceneGameClear()
+SceneTitle::~SceneTitle()
 {
 	// 画像削除
-	DeleteGraph(m_graphClear);
+	DeleteGraph(m_graphTitle);
 	DeleteGraph(m_graphClick);
 	DeleteGraph(m_graphBg);
 }
 
-std::shared_ptr<SceneBase> SceneGameClear::Update()
+shared_ptr<SceneBase> SceneTitle::Update()
 {
 	Pad::Update();
 
 	// フェードイン
-	if (m_isFadeIn == false)
+	if (m_isFadeIn == true)
 	{
 		m_fadeAlpha -= 8;
 		if (m_fadeAlpha < 0)
 		{
 			m_fadeAlpha = 0;
-			m_isFadeIn = true;
+			m_isFadeIn = false;
 		}
 	}
 
@@ -64,10 +65,11 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 	}
 	m_displayCount++;
 
-	if (Pad::IsTrigger(PAD_INPUT_10))					// スペースキーが押されたら
+	if (Pad::IsTrigger(PAD_INPUT_10))
 	{
-		m_isFadeOut = true;								// フェードアウトフラグをtrueにする
-		m_pSound->SoundButton();						// SEを鳴らす
+		m_pSound->SoundButton();
+		m_isFadeOut = true;
+		m_isFadeIn = false;
 	}
 
 	// フェードアウト
@@ -76,32 +78,34 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 		m_fadeAlpha += 8;
 		if (m_fadeAlpha > 255)
 		{
-			// BGMを止める
-			m_pSound->StopBGMGameClear();
-			m_fadeAlpha = 255;
+			m_pSound->StopBGMDefo();	// BGMを止める
 			m_isSceneEnd = true;
+			m_fadeAlpha = 255;
 		}
 
 		if (m_isSceneEnd == true)
 		{
-			return std::make_shared<SceneTitle>();		// タイトルシーンへ行く
+			return std::make_shared<SceneGame>();	// ゲームシーンへ行く
 		}
 	}
 
-	return shared_from_this();		// 自身のshared_ptrを返す
+	return shared_from_this();
 }
 
-void SceneGameClear::Draw()
+void SceneTitle::Draw()
 {
-	DrawRotaGraph2(0, 0,0, 0,1, 0.0f,m_graphBg, true);		// 背景描画
+	DrawRotaGraph2(0, 0, 0, 0, 1, 0.0f, m_graphBg, true);	// 背景描画
 
-	// ゲームクリア」画像描画
+	// タイトル画像描画
 	DrawExtendGraphF(kTitleGraphPosX, kTitleGraphPosY,
-		kScreenWidth * 0.85f, kScreenHeight * 0.5f, m_graphClear, true);
-	// Spaceキーをクリック」画像描画
+		kScreenWidth * 0.85f, kScreenHeight * 0.5f,
+		m_graphTitle, true);
+
+	// 「Spaceキーをクリック」画像描画
 	if (m_displayCount <= 60)
 	{
-		DrawGraphF(kClickGraphPosX, kClickGraphPosY, m_graphClick, true);
+		DrawGraphF(kClickGraphPosX, kClickGraphPosY,
+			m_graphClick, true);
 	}
 
 	// フェードイン・フェードアウト描画

@@ -3,22 +3,25 @@
 
 using namespace std;
 class SoundManager;
-class SceneTitle:
+class SceneGameOver :
 	public SceneBase
 {
 public:
-	SceneTitle();
-	virtual ~SceneTitle();
+	SceneGameOver();
+	virtual ~SceneGameOver();
 
-	virtual void Init();
+	virtual void Init(){}
 	virtual shared_ptr<SceneBase> Update();
 	virtual void Draw();
 	virtual void End(){}
 
 private:
-	int m_graphTitle;		// タイトルロゴ画像
+	int m_graphOver;		// 「GameClear」画像
 	int m_graphClick;		// 「Spaceキーでスタート」画像
-	int m_graphBg;				// 背景画像
+	// 背景画像
+	int m_graphBg1;			
+	int m_graphBg2;
+	int m_graphBg3;
 
 	int m_displayCount;		// 「Spaceキーをクリック」表示カウント
 	int m_fadeAlpha;        // フェードイン、アウト
