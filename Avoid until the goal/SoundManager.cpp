@@ -11,10 +11,6 @@ SoundManager::SoundManager() :
 {
 }
 
-SoundManager::~SoundManager()
-{
-}
-
 void SoundManager::Unload()
 {
 	DeleteSoundMem(m_soundJump);

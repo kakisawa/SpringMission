@@ -34,18 +34,16 @@ Player::Player() :
 	m_modelHandle = MV1LoadModel("data/SceneGame/model/Robot.mv1");
 	assert(m_modelHandle != -1);
 
-	m_pos = VGet(0, 0, 0);		// プレイヤー初期座標
-	m_velocity = VGet(0, 0, 0);	
-	m_dir = VGet(0, 0, 1);
+	m_pos = VGet(0, 0, 0);				// プレイヤー初期座標
+	m_velocity = VGet(m_speed, 0, 0);	// 速度
 
-	m_pSound->LoadSE();			// SEロード
+	m_pSound->LoadSE();					// SEロード
 }
 
 Player::~Player()
 {
-	// モデル削除
-	MV1DeleteModel(m_modelHandle);
-	m_pSound->Unload();
+	MV1DeleteModel(m_modelHandle);		// モデル削除
+	m_pSound->Unload();					// SE削除
 }
 
 void Player::Update()
@@ -59,14 +57,14 @@ void Player::Update()
 	}
 	else // プレイヤーが地面に着いている場合
 	{
-		m_gravity = kGravity;						// 重力を初期値に直す
+		m_gravity = kGravity;			// 重力を初期値に直す
 		m_isOnGround = true;			// 地面についているかのフラグをtrueにする
-		m_isJump = false;				// ジャンプしているかのフラグをfalseにする
+		m_isJump = false;				// ジャンプフラグをfalseにする
 
 		m_jumpCount = 0;				// ジャンプの回数を初期値に戻す
 	}
 
-	/*ジャンプ挙動*/
+	/*ジャンプ挙動_連続して2回まで可能*/
 	if (Pad::IsTrigger(PAD_INPUT_10))
 	{
 		if (m_jumpCount < 2)
@@ -74,37 +72,20 @@ void Player::Update()
 			m_pSound->SoundJump();	// ジャンプのSEを鳴らす
 		}
 
-		m_isJump = true;			// ジャンプしているかのフラグをtrueにする
+		m_isJump = true;			// ジャンプフラグをtrueにする
 		m_jumpCount += 1;			// ジャンプの回数を1増やす
 	}
-	if (m_isJump == true)	// ジャンプしている且つジャンプの最大到達地点まで行っていない場合
+	if (m_isJump == true)			// ジャンプフラグがtrueの場合
 	{
-		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));
+		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));				// ジャンプ1回目
 		if (m_jumpCount >= 2)
 		{
-			m_pos = VAdd(m_pos, VGet(0, kJumpPow * 0.5f, 0));
+			m_pos = VAdd(m_pos, VGet(0, kJumpPow * 0.5f, 0));	// ジャンプ2回目
 		}
 	}
 
-	m_dir = VGet(0, 0, 0);
-	m_dir = VAdd(m_dir, VGet(1, 0, 0));
-
-	// ゼロ除算避け
-	if (VSquareSize(m_dir) > 0)
-	{
-		// 正規化
-		m_dir = VNorm(m_dir);
-	}
-
 	// ポジションを更新
-	m_velocity = VScale(m_dir, m_speed);
 	m_pos = VAdd(m_pos, m_velocity);
-
-	// 力をかけ終わったベロシティの方向にディレクションを調整.
-	if (VSize(m_velocity) != 0)
-	{
-		m_dir = VNorm(m_velocity);
-	}
 
 	// プレイヤーのスケール決定
 	MV1SetScale(m_modelHandle, VGet(m_scale, m_scale, m_scale));
@@ -116,8 +97,7 @@ void Player::Update()
 	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, -90.0f, 0.0f));
 
 	// 当たり判定の更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y + kColPosAdjustment, m_pos.z,
-		kWidht, kHeight);
+	m_colRect.SetCenter(m_pos.x, m_pos.y + kColPosAdjustment, m_pos.z, kWidht, kHeight);
 }
 
 void Player::Draw()

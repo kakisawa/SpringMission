@@ -9,10 +9,6 @@ Rect::Rect():
 {
 }
 
-Rect::~Rect()
-{
-}
-
 void Rect::Draw(unsigned int color, bool isFill)
 {
 	DrawBoxAA(m_left, m_top, m_right, m_bottom, color, isFill);

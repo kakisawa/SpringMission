@@ -26,9 +26,8 @@ private:
 	bool m_isOnGround;		// プレイヤーが地面についているかのフラグ
 	bool m_isJump;			// プレイヤーがジャンプ(上昇)中かどうかのフラグ
 
-	VECTOR m_pos;			// プレイヤー座標
-	VECTOR m_velocity;
-	VECTOR m_dir;
+	VECTOR m_pos;			// 座標
+	VECTOR m_velocity;		// 速度
 
 	Rect m_colRect;			// 当たり判定用の矩形
 

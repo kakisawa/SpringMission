@@ -5,7 +5,7 @@ class Rect
 {
 public:
 	Rect();
-	virtual ~Rect();
+	virtual ~Rect(){}
 
 	// •`‰æ
 	void Draw(unsigned int color, bool isFill);

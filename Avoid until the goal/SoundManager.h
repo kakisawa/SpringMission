@@ -3,22 +3,15 @@ class SoundManager
 {
 public:
 	SoundManager();
-	~SoundManager();
+	~SoundManager(){}
 
-	void Init(){}
-	void Update() {}
-	void Draw(){}
-	void End(){}
+	void LoadSE();		// SE‚ğ“Ç‚İ‚Ş
+	void Unload();		// ‰¹ƒf[ƒ^‚ğíœ‚·‚é
 
-	void Unload();
+	void Ring(int s);	// ‰¹‚ğ–Â‚ç‚·
+	void Stop(int s);	// ‰¹‚ğ~‚ß‚é
 
-	void Ring(int s);
-	void Stop(int s);
-	
-	// SE‚ğ“Ç‚İ‚Ş
-	void LoadSE();
-
-	// ‰¹‚ğ–Â‚ç‚·
+	/*‰¹‚ğ–Â‚ç‚·*/
 	// SE
 	void SoundButton();
 	void SoundJump();
@@ -27,7 +20,7 @@ public:
 	void BGMButtle();
 	void BGMGameClear();
 	void BGMGameOver();
-	// ‰¹‚ğ~‚ß‚é
+	/*‰¹‚ğ~‚ß‚é*/
 	// SE
 	void StopSoundButton();
 	void StopSoundJump();
