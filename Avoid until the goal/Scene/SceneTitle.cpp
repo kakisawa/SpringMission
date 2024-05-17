@@ -85,7 +85,7 @@ shared_ptr<SceneBase> SceneTitle::Update()
 
 		if (m_isSceneEnd == true)
 		{
-			return std::make_shared<SceneGame>();	// ゲームシーンへ行く
+			return make_shared<SceneGame>();	// ゲームシーンへ行く
 		}
 	}
 

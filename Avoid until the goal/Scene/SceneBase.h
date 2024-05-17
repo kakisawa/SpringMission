@@ -6,7 +6,7 @@ class SceneBase :
 {
 public:
 	SceneBase() {}
-	virtual ~SceneBase() {}			// 継承元は必ずvirtualにする
+	virtual ~SceneBase() {}		// 継承元は必ずvirtualにする
 	virtual void Init() {}		// シーンに入る時の初期化処理
 
 	virtual shared_ptr<SceneBase> Update() = 0;
