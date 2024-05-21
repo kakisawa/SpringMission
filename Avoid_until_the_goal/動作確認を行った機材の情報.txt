@@ -1,0 +1,7 @@
+動作確認を行った機材の情報
+
+・Windows11/NVIDIA GeForce RTX 3070
+・Windows11/Intel(R) Iris(R) Xe Graphics
+
+
+Padクラス,Rectクラスは授業で講師の先生に教えていただいたプログラムを参考にしました。
