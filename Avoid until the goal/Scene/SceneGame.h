@@ -25,6 +25,7 @@ public:
 private:
 	int m_graphExplanation;		// ゲーム説明画像
 	int m_graphClick;			// 「Spaceキーでスタート」画像
+	int m_graphGameEnd;			// ゲーム終了画像
 	// 経過時間画像
 	int m_graph20sHavePassed;	// 20秒経過
 	int m_graph40sHavePassed;	// 40秒経過

@@ -13,6 +13,9 @@ namespace {
 	// 「Spaceキーをクリック」画像座標
 	constexpr float kClickGraphPosX = kScreenWidth * 0.28f;
 	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
+	// [Escキーでゲーム終了]画像座標
+	constexpr float kGameEndGraphPosX = kScreenWidth * 0.4f;
+	constexpr float kGameEndGraphPosY = kScreenHeight * 0.93f;
 }
 
 SceneTitle::SceneTitle() :
@@ -24,12 +27,14 @@ SceneTitle::SceneTitle() :
 	m_isSceneEnd(false),
 	m_graphBg(-1),
 	m_graphClick(-1),
-	m_graphTitle(-1)
+	m_graphTitle(-1),
+	m_graphGameEnd(-1)
 {
 	// 画像読み込み
 	m_graphTitle = LoadGraph("data/Title2.png");
 	m_graphClick = LoadGraph("data/ClickSpaceToGame2.png");
 	m_graphBg = LoadGraph("data/Bg/foggy-forest2.png");
+	m_graphGameEnd= LoadGraph("data/GameEnd.png");
 
 	m_pSound->LoadSE();		// SEロード
 	m_pSound->BGMDefo();	// BGMを流す
@@ -41,6 +46,7 @@ SceneTitle::~SceneTitle()
 	DeleteGraph(m_graphTitle);
 	DeleteGraph(m_graphClick);
 	DeleteGraph(m_graphBg);
+	DeleteGraph(m_graphGameEnd);
 }
 
 shared_ptr<SceneBase> SceneTitle::Update()
@@ -100,6 +106,10 @@ void SceneTitle::Draw()
 	DrawExtendGraphF(kTitleGraphPosX, kTitleGraphPosY,
 		kScreenWidth * 0.85f, kScreenHeight * 0.5f,
 		m_graphTitle, true);
+
+	DrawExtendGraph(kGameEndGraphPosX, kGameEndGraphPosY, 
+		kGameEndGraphPosX+400, kGameEndGraphPosY+80, 
+		m_graphGameEnd, true);
 
 	// 「Spaceキーをクリック」画像描画
 	if (m_displayCount <= 60)

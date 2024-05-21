@@ -19,6 +19,7 @@ private:
 	int m_graphClear;		// 「GameClear」画像
 	int m_graphClick;		// 「Spaceキーでスタート」画像
 	int m_graphBg;			// 背景画像
+	int m_graphGameEnd;		// ゲーム終了画像
 
 	int m_displayCount;		// 「Spaceキーをクリック」点滅表示用カウント
 	int m_fadeAlpha;        // フェードイン・アウト

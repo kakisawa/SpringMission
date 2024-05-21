@@ -12,6 +12,9 @@ namespace {
 	// 「Spaceキーをクリック」画像座標
 	constexpr float kClickGraphPosX = kScreenWidth * 0.2f;
 	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
+	// [Escキーでゲーム終了]画像座標
+	constexpr float kGameEndGraphPosX = kScreenWidth * 0.4f;
+	constexpr float kGameEndGraphPosY = kScreenHeight * 0.93f;
 }
 
 SceneGameClear::SceneGameClear():
@@ -23,12 +26,15 @@ SceneGameClear::SceneGameClear():
 	m_isSceneEnd(false),
 	m_graphBg(-1),
 	m_graphClick(-1),
-	m_graphClear(-1)
+	m_graphClear(-1),
+	m_graphGameEnd(-1)
 {
 	// 画像読み込み
 	m_graphClear = LoadGraph("data/GameClear2.png");
 	m_graphClick = LoadGraph("data/ClickSpaceToTitle2.png");
 	m_graphBg = LoadGraph("data/Bg/forest5.png");
+	m_graphGameEnd = LoadGraph("data/GameEnd.png");
+	
 
 	m_pSound->LoadSE();			// SEロード
 	m_pSound->BGMGameClear();	// BGMを流す
@@ -40,6 +46,7 @@ SceneGameClear::~SceneGameClear()
 	DeleteGraph(m_graphClear);
 	DeleteGraph(m_graphClick);
 	DeleteGraph(m_graphBg);
+	DeleteGraph(m_graphGameEnd);
 }
 
 std::shared_ptr<SceneBase> SceneGameClear::Update()
@@ -102,6 +109,9 @@ void SceneGameClear::Draw()
 	{
 		DrawGraphF(kClickGraphPosX, kClickGraphPosY, m_graphClick, true);
 	}
+	DrawExtendGraph(kGameEndGraphPosX, kGameEndGraphPosY,
+		kGameEndGraphPosX + 400, kGameEndGraphPosY + 80,
+		m_graphGameEnd, true);
 
 	// フェードイン・フェードアウト描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeAlpha);	// 半透明で表示開始

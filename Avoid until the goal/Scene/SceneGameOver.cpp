@@ -12,6 +12,9 @@ namespace {
 	// 「Spaceキーをクリック」画像座標
 	constexpr float kClickGraphPosX = kScreenWidth * 0.2f;
 	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
+	// [Escキーでゲーム終了]画像座標
+	constexpr float kGameEndGraphPosX = kScreenWidth * 0.4f;
+	constexpr float kGameEndGraphPosY = kScreenHeight * 0.93f;
 }
 
 SceneGameOver::SceneGameOver() :
@@ -25,7 +28,8 @@ SceneGameOver::SceneGameOver() :
 	m_graphBg2(-1),
 	m_graphBg3(-1),
 	m_graphOver(-1),
-	m_graphClick(-1)
+	m_graphClick(-1),
+	m_graphGameEnd(-1)
 {
 	// 画像読み込み
 	m_graphOver = LoadGraph("data/GameOver2.png");
@@ -33,6 +37,7 @@ SceneGameOver::SceneGameOver() :
 	m_graphBg1 = LoadGraph("data/bg/background_layer_1.png");
 	m_graphBg2 = LoadGraph("data/bg/background_layer_2.png");
 	m_graphBg3 = LoadGraph("data/bg/background_layer_3.png");
+	m_graphGameEnd = LoadGraph("data/GameEnd.png");
 
 	m_pSound->LoadSE();			// SEロード
 	m_pSound->BGMGameOver();	// BGMを流す
@@ -46,6 +51,7 @@ SceneGameOver::~SceneGameOver()
 	DeleteGraph(m_graphBg1);
 	DeleteGraph(m_graphBg2);
 	DeleteGraph(m_graphBg3);
+	DeleteGraph(m_graphGameEnd);
 }
 
 std::shared_ptr<SceneBase> SceneGameOver::Update()
@@ -112,6 +118,9 @@ void SceneGameOver::Draw()
 	{
 		DrawGraphF(kClickGraphPosX, kClickGraphPosY, m_graphClick, true);
 	}
+	DrawExtendGraph(kGameEndGraphPosX, kGameEndGraphPosY,
+		kGameEndGraphPosX + 400, kGameEndGraphPosY + 80,
+		m_graphGameEnd, true);
 
 
 	// フェードイン・フェードアウト描画

@@ -18,6 +18,10 @@ namespace {
 	constexpr float kClickGraphPosX = kScreenWidth * 0.28f;
 	constexpr float kClickGraphPosY = kScreenHeight * 0.73f;
 
+	// [Escキーでゲーム終了]画像座標
+	constexpr float kGameEndGraphPosX = kScreenWidth * 0.4f;
+	constexpr float kGameEndGraphPosY = kScreenHeight * 0.93f;
+
 	// カウントダウン画像描画位置
 	constexpr float CountDownX = static_cast<float>(kScreenWidth) * 0.5f - 53;
 	constexpr float CountDownY = static_cast<float>(kScreenHeight) * 0.5f - 114;
@@ -58,7 +62,8 @@ SceneGame::SceneGame() :
 	m_graph20sHavePassed(-1),
 	m_graph40sHavePassed(-1),
 	m_graph60sHavePassed(-1),
-	m_graph80sHavePassed(-1)
+	m_graph80sHavePassed(-1),
+	m_graphGameEnd(-1)
 {
 	// 画像読み込み
 	m_graph20sHavePassed = LoadGraph("data/SceneGame/20_progress2.png");
@@ -70,6 +75,7 @@ SceneGame::SceneGame() :
 	m_graphCount1 = LoadGraph("data/SceneGame/Count1.png");
 	m_graphCount2 = LoadGraph("data/SceneGame/Count2.png");
 	m_graphCount3 = LoadGraph("data/SceneGame/Count3.png");
+	m_graphGameEnd = LoadGraph("data/GameEnd.png");
 
 	CreateEnemy();			// 敵生成
 	m_pSound->LoadSE();		// SEロード
@@ -88,6 +94,7 @@ SceneGame::~SceneGame()
 	DeleteGraph(m_graph80sHavePassed);
 	DeleteGraph(m_graphExplanation);
 	DeleteGraph(m_graphClick);
+	DeleteGraph(m_graphGameEnd);
 }
 
 shared_ptr<SceneBase> SceneGame::Update()
@@ -100,6 +107,7 @@ shared_ptr<SceneBase> SceneGame::Update()
 	{
 		m_isFadeOut = true;					// フェードアウトフラグをtrueにする
 		m_isGameClearFlag = true;			// ゲームクリアフラグをtrueにする
+		m_pSound->StopBGMButtle();			// BGMを止める
 	}
 
 	/*ゲーム開始前*/
@@ -209,6 +217,10 @@ void SceneGame::Draw()
 			DrawGraphF(kClickGraphPosX, kClickGraphPosY,
 				m_graphClick, true);
 		}
+
+		DrawExtendGraph(kGameEndGraphPosX, kGameEndGraphPosY,
+			kGameEndGraphPosX + 400, kGameEndGraphPosY + 80,
+			m_graphGameEnd, true);
 	}
 
 	// ゲーム開始前カウントダウン描画
