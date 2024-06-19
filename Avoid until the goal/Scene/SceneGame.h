@@ -49,9 +49,6 @@ private:
 	bool m_isFadeOut;			// フェードアウト用フラグ
 	bool m_isSceneEnd;			// シーン遷移用フラグ
 
-	// 敵の数
-	int m_enemyNum = 90;
-
 	shared_ptr<Camera> m_pCamera = make_shared<Camera>();
 	shared_ptr<Player> m_pPlayer = make_shared<Player>();
 	shared_ptr<Bg> m_pBg = make_shared<Bg>();

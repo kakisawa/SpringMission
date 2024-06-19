@@ -54,7 +54,7 @@ shared_ptr<SceneBase> SceneTitle::Update()
 	Pad::Update();
 
 	// フェードイン
-	if (m_isFadeIn == true)
+	if(m_isFadeIn)
 	{
 		m_fadeAlpha -= 8;
 		if (m_fadeAlpha < 0)
@@ -79,20 +79,22 @@ shared_ptr<SceneBase> SceneTitle::Update()
 	}
 
 	// フェードアウト
-	if (m_isFadeOut == true)
+	if (m_isFadeOut)
 	{
+		if (m_isSceneEnd)
+		{
+			return make_shared<SceneGame>();	// ゲームシーンへ行く
+		}
+
 		m_fadeAlpha += 8;
-		if (m_fadeAlpha > 255)
+		if (m_fadeAlpha >= 255)
 		{
 			m_pSound->StopBGMDefo();	// BGMを止める
 			m_isSceneEnd = true;
 			m_fadeAlpha = 255;
 		}
 
-		if (m_isSceneEnd == true)
-		{
-			return make_shared<SceneGame>();	// ゲームシーンへ行く
-		}
+		
 	}
 
 	return shared_from_this();

@@ -54,7 +54,7 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 	Pad::Update();
 
 	// フェードイン
-	if (m_isFadeIn == false)
+	if (!m_isFadeIn)
 	{
 		m_fadeAlpha -= 8;
 		if (m_fadeAlpha < 0)
@@ -78,19 +78,19 @@ std::shared_ptr<SceneBase> SceneGameClear::Update()
 	}
 
 	// フェードアウト
-	if (m_isFadeOut == true)
+	if (m_isFadeOut)
 	{
+		if (m_isSceneEnd)
+		{
+			return make_shared<SceneTitle>();		// タイトルシーンへ行く
+		}
+
 		m_fadeAlpha += 8;
-		if (m_fadeAlpha > 255)
+		if (m_fadeAlpha >= 255)
 		{
 			m_pSound->StopBGMGameClear();	// BGMを止める
 			m_fadeAlpha = 255;
 			m_isSceneEnd = true;
-		}
-
-		if (m_isSceneEnd == true)
-		{
-			return make_shared<SceneTitle>();		// タイトルシーンへ行く
 		}
 	}
 

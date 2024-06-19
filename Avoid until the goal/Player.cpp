@@ -75,7 +75,7 @@ void Player::Update()
 		m_isJump = true;			// ジャンプフラグをtrueにする
 		m_jumpCount += 1;			// ジャンプの回数を1増やす
 	}
-	if (m_isJump == true)			// ジャンプフラグがtrueの場合
+	if (m_isJump)			// ジャンプフラグがtrueの場合
 	{
 		m_pos = VAdd(m_pos, VGet(0, kJumpPow, 0));				// ジャンプ1回目
 		if (m_jumpCount >= 2)
